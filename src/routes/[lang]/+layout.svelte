@@ -61,7 +61,15 @@
 	@media print {
 		.app-shell {
 			max-width: none;
+			min-height: auto;
 			padding: 0;
+		}
+		header {
+			margin-bottom: var(--space-2);
+		}
+		footer {
+			margin-top: var(--space-2);
+			padding-top: var(--space-1);
 		}
 	}
 </style>

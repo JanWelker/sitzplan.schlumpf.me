@@ -3,11 +3,9 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { SvelteSet } from 'svelte/reactivity';
 	import type { LayoutData } from './$types';
 	import SearchBar from '$lib/components/SearchBar.svelte';
 	import SeatChart from '$lib/components/SeatChart.svelte';
-	import Legend from '$lib/components/Legend.svelte';
 	import { buildHighlightSet, type HighlightSet } from '$lib/highlight/buildHighlightSet';
 	import { fetchSeatRoster, type SeatEntry } from '$lib/api/seatRoster';
 	import { fetchParlGroupColorIndex, type ParlGroupColor } from '$lib/api/parlGroups';
@@ -24,7 +22,6 @@
 	let nrRoster = $state<SeatEntry[]>([]);
 	let srRoster = $state<SeatEntry[]>([]);
 	let parlGroupIndex = $state<Map<number, ParlGroupColor>>(new Map());
-	const hiddenGroups: Set<number> = new SvelteSet();
 	let fetchedAt = $state<Date | null>(null);
 	let loadError = $state(false);
 
@@ -65,36 +62,6 @@
 			searchValue = initial;
 			runSearch(initial);
 		}
-	});
-
-	function toggleGroup(parlGroupNumber: number) {
-		if (hiddenGroups.has(parlGroupNumber)) hiddenGroups.delete(parlGroupNumber);
-		else hiddenGroups.add(parlGroupNumber);
-	}
-
-	const groupList = $derived(
-		[...parlGroupIndex.values()].sort((a, b) => a.parlGroupNumber - b.parlGroupNumber)
-	);
-
-	function countsFor(roster: SeatEntry[]): Map<number, number> {
-		// Transient scratch value recomputed inside $derived.by below — never
-		// stored as $state or mutated after this function returns, so a plain
-		// Map (not SvelteMap) is the right, lower-overhead choice here.
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity
-		const counts = new Map<number, number>();
-		for (const seat of roster) {
-			if (seat.parlGroupNumber == null) continue;
-			counts.set(seat.parlGroupNumber, (counts.get(seat.parlGroupNumber) ?? 0) + 1);
-		}
-		return counts;
-	}
-
-	const combinedCounts = $derived.by(() => {
-		const counts = countsFor(nrRoster);
-		for (const [groupNumber, count] of countsFor(srRoster)) {
-			counts.set(groupNumber, (counts.get(groupNumber) ?? 0) + count);
-		}
-		return counts;
 	});
 
 	const dateLabel = $derived(fetchedAt ? fetchedAt.toLocaleDateString(locale) : '');
@@ -162,16 +129,6 @@
 		<p class="status">{translate(messages, 'noResults')}</p>
 	{/if}
 
-	{#if groupList.length > 0 && (result.nr.length > 0 || result.sr.length > 0)}
-		<Legend
-			groups={groupList}
-			counts={combinedCounts}
-			{hiddenGroups}
-			onToggle={toggleGroup}
-			{messages}
-		/>
-	{/if}
-
 	<div class="charts">
 		{#if result.nr.length > 0}
 			<div class="chart-block">
@@ -180,7 +137,6 @@
 					roster={nrRoster}
 					highlights={result.nr}
 					partyColors={parlGroupIndex}
-					{hiddenGroups}
 					{messages}
 					title={translate(messages, 'chambers.nr')}
 				/>
@@ -210,7 +166,6 @@
 					roster={srRoster}
 					highlights={result.sr}
 					partyColors={parlGroupIndex}
-					{hiddenGroups}
 					{messages}
 					title={translate(messages, 'chambers.sr')}
 				/>
@@ -304,27 +259,64 @@
 		min-width: 280px;
 	}
 	.highlighted-list h3 {
-		font-size: 0.95rem;
-		margin: var(--space-3) 0 var(--space-2);
+		font-size: 0.85rem;
+		margin: var(--space-2) 0 var(--space-1);
 	}
 	.highlighted-list ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		columns: 2;
-		column-gap: var(--space-4);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		column-gap: var(--space-3);
+		row-gap: 2px;
 	}
 	.highlighted-list li {
-		break-inside: avoid;
-		padding: var(--space-1) 0;
-		font-size: 0.8rem;
+		padding: 2px 0;
+		font-size: 0.68rem;
+		line-height: 1.25;
 		display: flex;
 		flex-direction: column;
 	}
 	@media print {
+		.highlighted-list ul {
+			grid-template-columns: repeat(4, 1fr);
+			row-gap: 0;
+		}
+		.highlighted-list li {
+			font-size: 0.6rem;
+			line-height: 1.15;
+			padding: 1px 0;
+		}
+	}
+	@media print {
+		.searched-numbers {
+			margin: 4px 0;
+		}
+		.charts {
+			margin-top: 4px;
+			gap: var(--space-3);
+		}
 		.chart-block {
 			flex-basis: 100%;
 			page-break-inside: avoid;
+		}
+		.unseated,
+		.source {
+			font-size: 0.65rem;
+			margin-top: var(--space-2);
+		}
+		.unseated h2 {
+			font-size: 0.85rem;
+			margin: var(--space-1) 0;
+		}
+		.unseated ul {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			column-gap: var(--space-4);
+		}
+		.unseated li {
+			padding: 1px 0;
 		}
 	}
 	.unseated {

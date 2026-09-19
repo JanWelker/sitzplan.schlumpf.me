@@ -56,3 +56,19 @@ test('the print page size is set to A4 landscape', async ({ page }) => {
 	expect(pageCss?.toLowerCase()).toContain('a4');
 	expect(pageCss?.toLowerCase()).toContain('landscape');
 });
+
+test('the print view fits on a single page, even for multiple affairs', async ({ page }) => {
+	await mockODataRoutes(page);
+	await page.goto('/de');
+
+	await page
+		.getByRole('textbox', { name: 'Curia-Vista-Geschäftsnummer(n)' })
+		.fill('26.3533, 25.3235');
+	await page.getByRole('button', { name: 'Suchen' }).click();
+	await expect(page.getByRole('button', { name: /Mauro Tuena — Bekämpft von/ })).toBeVisible();
+
+	await page.emulateMedia({ media: 'print' });
+	const pdf = await page.pdf({ printBackground: true, preferCSSPageSize: true });
+	const pageCount = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length;
+	expect(pageCount).toBe(1);
+});

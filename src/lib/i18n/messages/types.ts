@@ -27,9 +27,6 @@ export interface Messages {
 		businessNotFound: string;
 		rosterUnavailable: string;
 	};
-	legend: {
-		title: string;
-	};
 	seatTooltip: {
 		canton: string;
 		party: string;

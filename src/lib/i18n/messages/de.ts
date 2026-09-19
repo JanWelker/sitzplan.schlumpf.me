@@ -29,9 +29,6 @@ const de: Messages = {
 		businessNotFound: 'Geschäft {number} wurde nicht gefunden.',
 		rosterUnavailable: 'Sitzplan-Daten sind momentan nicht abrufbar. Bitte später erneut versuchen.'
 	},
-	legend: {
-		title: 'Fraktionen'
-	},
 	seatTooltip: {
 		canton: 'Kanton',
 		party: 'Fraktion'

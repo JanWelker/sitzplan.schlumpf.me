@@ -30,9 +30,6 @@ const it: Messages = {
 		rosterUnavailable:
 			'I dati del piano dei posti non sono al momento disponibili. Riprova più tardi.'
 	},
-	legend: {
-		title: 'Gruppi parlamentari'
-	},
 	seatTooltip: {
 		canton: 'Cantone',
 		party: 'Gruppo'
