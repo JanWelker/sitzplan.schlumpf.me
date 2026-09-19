@@ -126,8 +126,9 @@ def main():
             print(f"WARNING: {chamber} is missing seats {sorted(missing)}", file=sys.stderr)
 
         out_path = DATA_DIR / f"seatPositions.{chamber}.json"
-        out_path.write_text(json.dumps(positions, indent=1, sort_keys=True) + "\n")
+        out_path.write_text(json.dumps(positions, indent=2, sort_keys=True) + "\n")
         print(f"wrote {out_path} ({len(positions)} seats)")
+        print(f"run `npx prettier --write {out_path}` to match the repo's formatting")
 
         pdf_path.unlink()  # the PDF itself isn't committed, only the digitized positions
 
