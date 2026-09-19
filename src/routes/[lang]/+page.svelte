@@ -250,13 +250,9 @@
 	}
 	.charts {
 		display: flex;
-		flex-wrap: wrap;
+		flex-direction: column;
 		gap: var(--space-5);
 		margin-top: var(--space-4);
-	}
-	.chart-block {
-		flex: 1 1 420px;
-		min-width: 280px;
 	}
 	.highlighted-list h3 {
 		font-size: 0.85rem;

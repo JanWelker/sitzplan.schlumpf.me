@@ -149,11 +149,6 @@
 </section>
 
 <style>
-	.seat-chart {
-		/* SVGs in a flex container otherwise collapse to a tiny intrinsic size. */
-		flex: 1 1 420px;
-		min-width: 280px;
-	}
 	.seat-chart h2 {
 		font-size: 1.1rem;
 		margin: 0 0 var(--space-2);
@@ -162,7 +157,6 @@
 		display: block;
 		width: 100%;
 		height: auto;
-		max-width: 720px;
 	}
 	@media print {
 		.seat-chart h2 {
