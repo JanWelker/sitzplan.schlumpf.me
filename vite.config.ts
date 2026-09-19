@@ -14,7 +14,13 @@ export default defineConfig({
 			// Lets PR preview builds be served from a subpath (e.g.
 			// /pr-preview/pr-42) without every internal link breaking — see
 			// .github/workflows/pr-preview.yml. Empty for the production build.
-			paths: { base: (process.env.BASE_PATH ?? '') as '' | `/${string}` }
+			paths: { base: (process.env.BASE_PATH ?? '') as '' | `/${string}` },
+			// This is effectively a single page (de/fr/it are the same app,
+			// not separate sections users navigate between), so the default
+			// per-route code splitting just means more round trips for no
+			// caching benefit — one shared JS/CSS bundle is fewer requests
+			// for the exact same content.
+			output: { bundleStrategy: 'single' }
 		})
 	],
 	test: {
