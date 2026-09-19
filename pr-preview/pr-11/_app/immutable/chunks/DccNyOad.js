@@ -1,0 +1,1 @@
+import{R as e}from"./Dpa1hU1L.js";var t=e({visible:!1,onPrint:null});export{t};
