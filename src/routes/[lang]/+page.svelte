@@ -145,7 +145,6 @@
 	<div class="charts">
 		{#if result.nr.length > 0}
 			<SeatChart
-				seatCount={200}
 				arcCount={8}
 				roster={nrRoster}
 				highlights={result.nr}
@@ -157,7 +156,6 @@
 		{/if}
 		{#if result.sr.length > 0}
 			<SeatChart
-				seatCount={46}
 				arcCount={5}
 				roster={srRoster}
 				highlights={result.sr}

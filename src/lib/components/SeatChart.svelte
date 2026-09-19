@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateHemicycleLayout } from '$lib/layout/hemicycle';
+	import { generateGroupedHemicycleLayout } from '$lib/layout/hemicycle';
 	import type { SeatEntry } from '$lib/api/seatRoster';
 	import type { SeatHighlight, RoleKind } from '$lib/highlight/buildHighlightSet';
 	import type { ParlGroupColor } from '$lib/api/parlGroups';
@@ -9,7 +9,6 @@
 	import SeatTooltip from './SeatTooltip.svelte';
 
 	interface Props {
-		seatCount: number;
 		arcCount: number;
 		roster: SeatEntry[];
 		highlights: SeatHighlight[];
@@ -19,18 +18,10 @@
 		title: string;
 	}
 
-	let {
-		seatCount,
-		arcCount,
-		roster,
-		highlights,
-		partyColors,
-		hiddenGroups,
-		messages,
-		title
-	}: Props = $props();
+	let { arcCount, roster, highlights, partyColors, hiddenGroups, messages, title }: Props =
+		$props();
 
-	const SEAT_RADIUS = 11;
+	const SEAT_SIZE = 15;
 	/** Fixed draw order + visual encoding (color AND dash pattern, not color alone) for stacked role rings. */
 	const ROLE_ORDER: RoleKind[] = ['contester', 'submitter', 'rapporteur'];
 	const ROLE_STYLE: Record<RoleKind, { color: string; dash: string | undefined }> = {
@@ -39,12 +30,63 @@
 		rapporteur: { color: '#2e7d32', dash: undefined }
 	};
 
-	const positions = $derived(generateHemicycleLayout(seatCount, arcCount));
+	/**
+	 * Political-spectrum order, right to left (angle 0 = rightmost, increasing
+	 * toward the left) — so e.g. SVP renders on the right and SP on the left,
+	 * matching how Swiss media conventionally draw the chamber. Any group not
+	 * in this list (independents, a newly formed group) sorts after the
+	 * rightmost known group, ordered by ParlGroupNumber for stability.
+	 */
+	const CANONICAL_GROUP_ORDER = ['V', 'RL', 'M-E', 'GL', 'G', 'S'];
+
+	function groupOrderIndex(parlGroupNumber: number | null): number {
+		const abbreviation =
+			parlGroupNumber != null ? partyColors.get(parlGroupNumber)?.abbreviation : undefined;
+		const index = abbreviation ? CANONICAL_GROUP_ORDER.indexOf(abbreviation) : -1;
+		return index === -1 ? CANONICAL_GROUP_ORDER.length : index;
+	}
+
+	interface SeatGroup {
+		parlGroupNumber: number | null;
+		seats: SeatEntry[];
+	}
+
+	const groupedSeats = $derived.by((): SeatGroup[] => {
+		// Transient scratch value, discarded once flattened into the returned
+		// array below — never stored as $state, so a plain Map is correct.
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const byGroup = new Map<number | null, SeatEntry[]>();
+		for (const seat of roster) {
+			const key = seat.parlGroupNumber;
+			const list = byGroup.get(key);
+			if (list) list.push(seat);
+			else byGroup.set(key, [seat]);
+		}
+		return [...byGroup.entries()]
+			.map(([parlGroupNumber, seats]) => ({
+				parlGroupNumber,
+				seats: [...seats].sort((a, b) => a.seatNumber - b.seatNumber)
+			}))
+			.sort((a, b) => {
+				const orderDiff = groupOrderIndex(a.parlGroupNumber) - groupOrderIndex(b.parlGroupNumber);
+				if (orderDiff !== 0) return orderDiff;
+				return (a.parlGroupNumber ?? 0) - (b.parlGroupNumber ?? 0);
+			});
+	});
+
+	const orderedSeats = $derived(groupedSeats.flatMap((g) => g.seats));
+	const positions = $derived(
+		generateGroupedHemicycleLayout(
+			groupedSeats.map((g) => g.seats.length),
+			arcCount
+		)
+	);
+
 	const rosterByNumber = $derived(new Map(roster.map((s) => [s.seatNumber, s])));
 	const highlightByNumber = $derived(new Map(highlights.map((h) => [h.seatNumber, h])));
 
 	const bounds = $derived.by(() => {
-		const pad = SEAT_RADIUS + 14;
+		const pad = SEAT_SIZE + 14;
 		if (positions.length === 0) return { minX: -pad, maxX: pad, minY: -pad, maxY: pad };
 		const xs = positions.map((p) => p.x);
 		const ys = positions.map((p) => p.y);
@@ -52,7 +94,7 @@
 			minX: Math.min(...xs) - pad,
 			maxX: Math.max(...xs) + pad,
 			minY: Math.min(...ys) - pad,
-			maxY: SEAT_RADIUS + 20
+			maxY: SEAT_SIZE + 20
 		};
 	});
 
@@ -73,8 +115,7 @@
 		return [...roles].sort((a, b) => ROLE_ORDER.indexOf(a.kind) - ROLE_ORDER.indexOf(b.kind));
 	}
 
-	function ariaLabelFor(seat: SeatEntry | undefined, highlight: SeatHighlight | undefined): string {
-		if (!seat) return '';
+	function ariaLabelFor(seat: SeatEntry, highlight: SeatHighlight | undefined): string {
 		const name = `${seat.firstName} ${seat.lastName}`;
 		if (!highlight) return name;
 		// Dedupe to unique role kinds for the accessible name — a seat can hold
@@ -97,14 +138,15 @@
 			rx="12"
 			class="hemicycle-bg"
 		/>
-		{#each positions as pos (pos.seatNumber)}
-			{@const seat = rosterByNumber.get(pos.seatNumber)}
-			{@const highlight = highlightByNumber.get(pos.seatNumber)}
+		{#each orderedSeats as seat, i (seat.seatNumber)}
+			{@const pos = positions[i]}
+			{@const highlight = highlightByNumber.get(seat.seatNumber)}
 			{@const groupColor =
-				seat?.parlGroupNumber != null
+				seat.parlGroupNumber != null
 					? (partyColors.get(seat.parlGroupNumber)?.color ?? FALLBACK_PARTY_COLOR)
 					: FALLBACK_PARTY_COLOR}
-			{@const dimmed = seat?.parlGroupNumber != null && hiddenGroups.has(seat.parlGroupNumber)}
+			{@const dimmed = seat.parlGroupNumber != null && hiddenGroups.has(seat.parlGroupNumber)}
+			{@const rotateDeg = (pos.angleRad * 180) / Math.PI - 90}
 			<g
 				transform={`translate(${pos.x}, ${pos.y})`}
 				class="seat"
@@ -112,16 +154,16 @@
 				role="button"
 				tabindex="0"
 				aria-label={ariaLabelFor(seat, highlight)}
-				data-seat-number={pos.seatNumber}
-				onmouseenter={() => (activeSeatNumber = pos.seatNumber)}
+				data-seat-number={seat.seatNumber}
+				onmouseenter={() => (activeSeatNumber = seat.seatNumber)}
 				onmouseleave={() => (activeSeatNumber = null)}
-				onfocus={() => (activeSeatNumber = pos.seatNumber)}
+				onfocus={() => (activeSeatNumber = seat.seatNumber)}
 				onblur={() => (activeSeatNumber = null)}
 			>
 				{#if highlight}
-					{#each sortedRoles(highlight.roles) as role, i (role.kind + role.businessShortNumber)}
+					{#each sortedRoles(highlight.roles) as role, ringIndex (role.kind + role.businessShortNumber)}
 						<circle
-							r={SEAT_RADIUS + 3 + i * 3}
+							r={SEAT_SIZE / 2 + 4 + ringIndex * 3}
 							fill="none"
 							stroke={ROLE_STYLE[role.kind].color}
 							stroke-width="2"
@@ -129,7 +171,16 @@
 						/>
 					{/each}
 				{/if}
-				<circle r={SEAT_RADIUS} fill={groupColor} class="seat-fill" />
+				<rect
+					transform={`rotate(${rotateDeg})`}
+					x={-SEAT_SIZE / 2}
+					y={-SEAT_SIZE / 2}
+					width={SEAT_SIZE}
+					height={SEAT_SIZE}
+					rx="1.5"
+					fill={groupColor}
+					class="seat-fill"
+				/>
 			</g>
 		{/each}
 	</svg>
@@ -139,14 +190,20 @@
 </section>
 
 <style>
+	.seat-chart {
+		/* SVGs in a flex container otherwise collapse to a tiny intrinsic size. */
+		flex: 1 1 420px;
+		min-width: 280px;
+	}
 	.seat-chart h2 {
 		font-size: 1.1rem;
 		margin: 0 0 var(--space-2);
 	}
 	svg {
+		display: block;
 		width: 100%;
 		height: auto;
-		max-width: 640px;
+		max-width: 720px;
 	}
 	.hemicycle-bg {
 		fill: var(--color-hemicycle-bg);
@@ -154,7 +211,7 @@
 	}
 	.seat-fill {
 		stroke: var(--color-seat-divider);
-		stroke-width: 1.5;
+		stroke-width: 1;
 	}
 	.seat {
 		cursor: pointer;
@@ -162,7 +219,7 @@
 	}
 	.seat:focus-visible .seat-fill {
 		stroke: var(--color-accent-dark);
-		stroke-width: 2.5;
+		stroke-width: 2;
 	}
 	.seat.dimmed {
 		opacity: 0.25;
