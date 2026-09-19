@@ -29,6 +29,7 @@
 	</main>
 	<footer>
 		<p>{translate(messages, 'footer.disclaimer')}</p>
+		<p class="credit no-print">Designed in Basel-Stadt. Assembled by AI.</p>
 	</footer>
 </div>
 
@@ -76,6 +77,12 @@
 		border-top: 1px solid var(--color-border);
 		font-size: 0.8rem;
 		color: var(--color-text-muted);
+	}
+	.credit {
+		margin-top: var(--space-2);
+		text-align: center;
+		font-size: 0.7rem;
+		letter-spacing: 0.02em;
 	}
 
 	@media print {
