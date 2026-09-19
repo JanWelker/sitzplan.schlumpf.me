@@ -2,28 +2,28 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildHighlightSet } from './buildHighlightSet';
 import { clearSessionCacheForTests } from '../api/sessionCache';
 
-vi.mock('../api/businesses', () => ({ fetchBusiness: vi.fn() }));
-vi.mock('../api/roles', () => ({ fetchBusinessRoles: vi.fn() }));
-vi.mock('../api/rapporteurs', () => ({ fetchRapporteurs: vi.fn() }));
+vi.mock('../api/businesses', () => ({ fetchBusinesses: vi.fn() }));
+vi.mock('../api/roles', () => ({ fetchBusinessRolesForBusinesses: vi.fn() }));
+vi.mock('../api/rapporteurs', () => ({ fetchRapporteursForBusinesses: vi.fn() }));
 vi.mock('../api/seatRoster', () => ({ fetchSeatRoster: vi.fn() }));
-vi.mock('../api/members', () => ({ fetchMemberCouncil: vi.fn() }));
-vi.mock('../api/committees', () => ({ fetchCommitteeName: vi.fn() }));
+vi.mock('../api/members', () => ({ fetchMemberCouncils: vi.fn() }));
+vi.mock('../api/committees', () => ({ fetchCommitteeNames: vi.fn() }));
 vi.mock('../api/parlGroups', () => ({ fetchParlGroupColorIndex: vi.fn() }));
 
-import { fetchBusiness } from '../api/businesses';
-import { fetchBusinessRoles } from '../api/roles';
-import { fetchRapporteurs } from '../api/rapporteurs';
+import { fetchBusinesses } from '../api/businesses';
+import { fetchBusinessRolesForBusinesses } from '../api/roles';
+import { fetchRapporteursForBusinesses } from '../api/rapporteurs';
 import { fetchSeatRoster } from '../api/seatRoster';
-import { fetchMemberCouncil } from '../api/members';
-import { fetchCommitteeName } from '../api/committees';
+import { fetchMemberCouncils } from '../api/members';
+import { fetchCommitteeNames } from '../api/committees';
 import { fetchParlGroupColorIndex } from '../api/parlGroups';
 
-const business = vi.mocked(fetchBusiness);
-const roles = vi.mocked(fetchBusinessRoles);
-const rapporteurs = vi.mocked(fetchRapporteurs);
+const businesses = vi.mocked(fetchBusinesses);
+const roles = vi.mocked(fetchBusinessRolesForBusinesses);
+const rapporteurs = vi.mocked(fetchRapporteursForBusinesses);
 const roster = vi.mocked(fetchSeatRoster);
-const memberFallback = vi.mocked(fetchMemberCouncil);
-const committeeName = vi.mocked(fetchCommitteeName);
+const memberFallbacks = vi.mocked(fetchMemberCouncils);
+const committeeNames = vi.mocked(fetchCommitteeNames);
 const parlGroupIndex = vi.mocked(fetchParlGroupColorIndex);
 
 const NR_SEAT_FISCHER = {
@@ -53,17 +53,16 @@ beforeEach(() => {
 	);
 	roles.mockResolvedValue([]);
 	rapporteurs.mockResolvedValue([]);
+	memberFallbacks.mockResolvedValue([]);
+	committeeNames.mockResolvedValue(new Map());
 	parlGroupIndex.mockResolvedValue(new Map());
 });
 
 describe('buildHighlightSet', () => {
 	it('places an individual rapporteur and submitter both on the roster onto their seats', async () => {
-		business.mockResolvedValue({
-			id: 20263533,
-			shortNumber: '26.3533',
-			title: 'Test',
-			businessTypeName: 'Motion'
-		});
+		businesses.mockResolvedValue([
+			{ id: 20263533, shortNumber: '26.3533', title: 'Test', businessTypeName: 'Motion' }
+		]);
 		roles.mockResolvedValue([
 			{
 				kind: 'submitter',
@@ -86,6 +85,8 @@ describe('buildHighlightSet', () => {
 
 		const result = await buildHighlightSet('26.3533', 'de');
 
+		expect(roles).toHaveBeenCalledWith([20263533], 'de');
+		expect(rapporteurs).toHaveBeenCalledWith([20263533], 'de');
 		expect(result.nr).toHaveLength(2);
 		const fischerSeat = result.nr.find((s) => s.personNumber === 4326);
 		expect(fischerSeat?.roles).toEqual([{ kind: 'submitter', businessShortNumber: '26.3533' }]);
@@ -96,12 +97,9 @@ describe('buildHighlightSet', () => {
 	});
 
 	it('renders a committee-held submitter as a text-only unseated entry, not a seat highlight', async () => {
-		business.mockResolvedValue({
-			id: 20263533,
-			shortNumber: '26.3533',
-			title: 'Test',
-			businessTypeName: 'Motion'
-		});
+		businesses.mockResolvedValue([
+			{ id: 20263533, shortNumber: '26.3533', title: 'Test', businessTypeName: 'Motion' }
+		]);
 		roles.mockResolvedValue([
 			{
 				kind: 'submitter',
@@ -112,10 +110,11 @@ describe('buildHighlightSet', () => {
 				parlGroupNumber: null
 			}
 		]);
-		committeeName.mockResolvedValue('Staatspolitische Kommission Nationalrat');
+		committeeNames.mockResolvedValue(new Map([[11, 'Staatspolitische Kommission Nationalrat']]));
 
 		const result = await buildHighlightSet('26.3533', 'de');
 
+		expect(committeeNames).toHaveBeenCalledWith([11], 'de');
 		expect(result.nr).toEqual([]);
 		expect(result.sr).toEqual([]);
 		expect(result.unseated).toEqual([
@@ -129,12 +128,9 @@ describe('buildHighlightSet', () => {
 	});
 
 	it('renders a parlGroup-held role as a text-only unseated entry using the resolved group name', async () => {
-		business.mockResolvedValue({
-			id: 1,
-			shortNumber: '26.0001',
-			title: 'Test',
-			businessTypeName: 'Motion'
-		});
+		businesses.mockResolvedValue([
+			{ id: 1, shortNumber: '26.0001', title: 'Test', businessTypeName: 'Motion' }
+		]);
 		roles.mockResolvedValue([
 			{
 				kind: 'contester',
@@ -163,39 +159,36 @@ describe('buildHighlightSet', () => {
 		]);
 	});
 
-	it('merges roles from multiple affairs onto the same seat', async () => {
-		business.mockImplementation(async (shortNumber) => ({
-			id: shortNumber === '26.3533' ? 1 : 2,
-			shortNumber,
-			title: 'Test',
-			businessTypeName: 'Motion'
-		}));
-		roles.mockImplementation(async (businessId) =>
-			businessId === 1
-				? [
-						{
-							kind: 'submitter',
-							businessId: 1,
-							businessShortNumber: '26.3533',
-							personNumber: 4326,
-							committeeNumber: null,
-							parlGroupNumber: null
-						}
-					]
-				: [
-						{
-							kind: 'contester',
-							businessId: 2,
-							businessShortNumber: '26.4063',
-							personNumber: 4326,
-							committeeNumber: null,
-							parlGroupNumber: null
-						}
-					]
-		);
+	it('resolves all affairs in one batched call and merges roles from multiple affairs onto the same seat', async () => {
+		businesses.mockResolvedValue([
+			{ id: 1, shortNumber: '26.3533', title: 'Test', businessTypeName: 'Motion' },
+			{ id: 2, shortNumber: '26.4063', title: 'Test', businessTypeName: 'Motion' }
+		]);
+		roles.mockResolvedValue([
+			{
+				kind: 'submitter',
+				businessId: 1,
+				businessShortNumber: '26.3533',
+				personNumber: 4326,
+				committeeNumber: null,
+				parlGroupNumber: null
+			},
+			{
+				kind: 'contester',
+				businessId: 2,
+				businessShortNumber: '26.4063',
+				personNumber: 4326,
+				committeeNumber: null,
+				parlGroupNumber: null
+			}
+		]);
 
 		const result = await buildHighlightSet('26.3533, 26.4063', 'de');
 
+		expect(businesses).toHaveBeenCalledTimes(1);
+		expect(businesses).toHaveBeenCalledWith(['26.3533', '26.4063'], 'de');
+		expect(roles).toHaveBeenCalledTimes(1);
+		expect(roles).toHaveBeenCalledWith([1, 2], 'de');
 		expect(result.nr).toHaveLength(1);
 		expect(result.nr[0].personNumber).toBe(4326);
 		expect(result.nr[0].roles).toEqual([
@@ -205,12 +198,9 @@ describe('buildHighlightSet', () => {
 	});
 
 	it('does not duplicate a badge for the same (kind, business) pair', async () => {
-		business.mockResolvedValue({
-			id: 1,
-			shortNumber: '26.3533',
-			title: 'Test',
-			businessTypeName: 'Motion'
-		});
+		businesses.mockResolvedValue([
+			{ id: 1, shortNumber: '26.3533', title: 'Test', businessTypeName: 'Motion' }
+		]);
 		roles.mockResolvedValue([
 			{
 				kind: 'submitter',
@@ -239,25 +229,19 @@ describe('buildHighlightSet', () => {
 	});
 
 	it('records an unknown business number as a business error without failing the rest of the batch', async () => {
-		business.mockImplementation(async (shortNumber) =>
-			shortNumber === '99.9999'
-				? null
-				: { id: 1, shortNumber, title: 'Test', businessTypeName: 'Motion' }
-		);
-		roles.mockImplementation(async (businessId) =>
-			businessId === 1
-				? [
-						{
-							kind: 'submitter',
-							businessId: 1,
-							businessShortNumber: '26.3533',
-							personNumber: 4326,
-							committeeNumber: null,
-							parlGroupNumber: null
-						}
-					]
-				: []
-		);
+		businesses.mockResolvedValue([
+			{ id: 1, shortNumber: '26.3533', title: 'Test', businessTypeName: 'Motion' }
+		]);
+		roles.mockResolvedValue([
+			{
+				kind: 'submitter',
+				businessId: 1,
+				businessShortNumber: '26.3533',
+				personNumber: 4326,
+				committeeNumber: null,
+				parlGroupNumber: null
+			}
+		]);
 
 		const result = await buildHighlightSet('26.3533, 99.9999', 'de');
 
@@ -268,17 +252,14 @@ describe('buildHighlightSet', () => {
 	it('surfaces invalid tokens as parse errors without calling the API', async () => {
 		const result = await buildHighlightSet('not-a-number', 'de');
 		expect(result.parseErrors).toEqual(['not-a-number']);
-		expect(business).not.toHaveBeenCalled();
+		expect(businesses).not.toHaveBeenCalled();
 		expect(roster).not.toHaveBeenCalled();
 	});
 
 	it('falls back to a MemberCouncil lookup for a non-rapporteur role holder not on the roster', async () => {
-		business.mockResolvedValue({
-			id: 1,
-			shortNumber: '03.3169',
-			title: 'Test',
-			businessTypeName: 'Motion'
-		});
+		businesses.mockResolvedValue([
+			{ id: 1, shortNumber: '03.3169', title: 'Test', businessTypeName: 'Motion' }
+		]);
 		roles.mockResolvedValue([
 			{
 				kind: 'contester',
@@ -289,20 +270,23 @@ describe('buildHighlightSet', () => {
 				parlGroupNumber: null
 			}
 		]);
-		memberFallback.mockResolvedValue({
-			personNumber: 501,
-			firstName: 'Former',
-			lastName: 'Member',
-			council: 1,
-			councilAbbreviation: 'NR',
-			cantonAbbreviation: 'BE',
-			parlGroupNumber: null,
-			parlGroupAbbreviation: null,
-			parlGroupName: null
-		});
+		memberFallbacks.mockResolvedValue([
+			{
+				personNumber: 501,
+				firstName: 'Former',
+				lastName: 'Member',
+				council: 1,
+				councilAbbreviation: 'NR',
+				cantonAbbreviation: 'BE',
+				parlGroupNumber: null,
+				parlGroupAbbreviation: null,
+				parlGroupName: null
+			}
+		]);
 
 		const result = await buildHighlightSet('03.3169', 'de');
 
+		expect(memberFallbacks).toHaveBeenCalledWith([501], 'de');
 		expect(result.unseated).toEqual([
 			{
 				key: 'person:501',

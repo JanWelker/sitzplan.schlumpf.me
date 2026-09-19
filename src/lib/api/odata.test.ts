@@ -35,11 +35,35 @@ describe('queryOData', () => {
 			.mockResolvedValue({ ok: true, status: 200, json: async () => ({ d: [] }) });
 		vi.stubGlobal('fetch', fetchMock);
 
-		await queryOData('MemberCouncil', 'fr', 'PersonNumber eq 123');
+		await queryOData('MemberCouncil', 'fr', { filter: 'PersonNumber eq 123' });
 
 		const calledUrl = decodeURIComponent(fetchMock.mock.calls[0][0] as string);
 		expect(calledUrl).toContain("Language eq 'FR'");
 		expect(calledUrl).toContain('PersonNumber eq 123');
+	});
+
+	it('appends a $select clause when fields are given, to cut payload size', async () => {
+		const fetchMock = vi
+			.fn()
+			.mockResolvedValue({ ok: true, status: 200, json: async () => ({ d: [] }) });
+		vi.stubGlobal('fetch', fetchMock);
+
+		await queryOData('Business', 'de', { select: ['ID', 'Title'] });
+
+		const calledUrl = decodeURIComponent(fetchMock.mock.calls[0][0] as string);
+		expect(calledUrl).toContain('$select=ID,Title');
+	});
+
+	it('omits $select entirely when no fields are given', async () => {
+		const fetchMock = vi
+			.fn()
+			.mockResolvedValue({ ok: true, status: 200, json: async () => ({ d: [] }) });
+		vi.stubGlobal('fetch', fetchMock);
+
+		await queryOData('Business', 'de');
+
+		const calledUrl = fetchMock.mock.calls[0][0] as string;
+		expect(calledUrl).not.toContain('$select');
 	});
 
 	it('throws ODataError on a non-2xx response', async () => {

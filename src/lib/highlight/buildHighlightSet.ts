@@ -1,10 +1,10 @@
 import { parseCuriaInput } from '../api/curia';
-import { fetchBusiness } from '../api/businesses';
-import { fetchBusinessRoles } from '../api/roles';
-import { fetchRapporteurs } from '../api/rapporteurs';
+import { fetchBusinesses } from '../api/businesses';
+import { fetchBusinessRolesForBusinesses } from '../api/roles';
+import { fetchRapporteursForBusinesses } from '../api/rapporteurs';
 import { fetchSeatRoster, type SeatEntry } from '../api/seatRoster';
-import { fetchMemberCouncil } from '../api/members';
-import { fetchCommitteeName } from '../api/committees';
+import { fetchMemberCouncils } from '../api/members';
+import { fetchCommitteeNames } from '../api/committees';
 import { fetchParlGroupColorIndex } from '../api/parlGroups';
 import type { Chamber, Locale } from '../api/types';
 
@@ -94,45 +94,44 @@ export async function buildHighlightSet(rawInput: string, locale: Locale): Promi
 	const nrByPerson = new Map(nrRoster.map((seat) => [seat.personNumber, seat]));
 	const srByPerson = new Map(srRoster.map((seat) => [seat.personNumber, seat]));
 
-	const businessErrors: AffairError[] = [];
-	const assignments: Assignment[] = [];
+	// One batched request resolves every entered affair number at once,
+	// instead of one request per number — the API supports OR-combined
+	// filters (confirmed live), so this stays a single round trip
+	// regardless of how many affairs were entered.
+	const businesses = await fetchBusinesses(valid, locale);
+	const businessByShortNumber = new Map(businesses.map((b) => [b.shortNumber, b]));
+	const businessErrors: AffairError[] = valid
+		.filter((shortNumber) => !businessByShortNumber.has(shortNumber))
+		.map((shortNumber) => ({ shortNumber }));
 
-	await Promise.all(
-		valid.map(async (shortNumber) => {
-			const business = await fetchBusiness(shortNumber, locale);
-			if (!business) {
-				businessErrors.push({ shortNumber });
-				return;
-			}
-			const [roles, rapporteurs] = await Promise.all([
-				fetchBusinessRoles(business.id, locale),
-				fetchRapporteurs(business.id, locale)
-			]);
-			for (const role of roles) {
-				assignments.push({
-					kind: role.kind,
-					businessShortNumber: role.businessShortNumber,
-					personNumber: role.personNumber,
-					committeeNumber: role.committeeNumber,
-					parlGroupNumber: role.parlGroupNumber
-				});
-			}
-			for (const rapporteur of rapporteurs) {
-				assignments.push({
-					kind: 'rapporteur',
-					businessShortNumber: rapporteur.businessShortNumber,
-					personNumber: rapporteur.personNumber,
-					committeeNumber: null,
-					parlGroupNumber: null,
-					knownFirstName: rapporteur.firstName,
-					knownLastName: rapporteur.lastName
-				});
-			}
-		})
-	);
+	const businessIds = businesses.map((b) => b.id);
+	const [roles, rapporteurs] = await Promise.all([
+		fetchBusinessRolesForBusinesses(businessIds, locale),
+		fetchRapporteursForBusinesses(businessIds, locale)
+	]);
+
+	const assignments: Assignment[] = [
+		...roles.map((role) => ({
+			kind: role.kind as RoleKind,
+			businessShortNumber: role.businessShortNumber,
+			personNumber: role.personNumber,
+			committeeNumber: role.committeeNumber,
+			parlGroupNumber: role.parlGroupNumber
+		})),
+		...rapporteurs.map((rapporteur) => ({
+			kind: 'rapporteur' as const,
+			businessShortNumber: rapporteur.businessShortNumber,
+			personNumber: rapporteur.personNumber,
+			committeeNumber: null,
+			parlGroupNumber: null,
+			knownFirstName: rapporteur.firstName,
+			knownLastName: rapporteur.lastName
+		}))
+	];
 
 	// Gather fallback lookups needed for people not on the roster, and for
-	// committee/parlGroup-held roles, deduplicated so each is fetched once.
+	// committee/parlGroup-held roles, deduplicated so each is fetched once
+	// (and each as a single batched request, not one per item).
 	const personFallbackNumbers = new Set<number>();
 	const committeeNumbers = new Set<number>();
 	let needsParlGroupNames = false;
@@ -149,21 +148,12 @@ export async function buildHighlightSet(rawInput: string, locale: Locale): Promi
 		}
 	}
 
-	const [memberFallbacks, committeeNames, parlGroupIndex] = await Promise.all([
-		Promise.all(
-			[...personFallbackNumbers].map((n) =>
-				fetchMemberCouncil(n, locale).then((m) => [n, m] as const)
-			)
-		),
-		Promise.all(
-			[...committeeNumbers].map((n) =>
-				fetchCommitteeName(n, locale).then((name) => [n, name] as const)
-			)
-		),
+	const [memberFallbacks, committeeNameByNumber, parlGroupIndex] = await Promise.all([
+		fetchMemberCouncils([...personFallbackNumbers], locale),
+		fetchCommitteeNames([...committeeNumbers], locale),
 		needsParlGroupNames ? fetchParlGroupColorIndex(locale) : Promise.resolve(new Map())
 	]);
-	const memberFallbackByPerson = new Map(memberFallbacks);
-	const committeeNameByNumber = new Map(committeeNames);
+	const memberFallbackByPerson = new Map(memberFallbacks.map((m) => [m.personNumber, m]));
 
 	const seatHighlights = new Map<string, SeatHighlight>();
 	const unseated = new Map<string, UnseatedEntry>();
