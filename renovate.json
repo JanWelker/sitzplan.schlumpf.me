@@ -11,6 +11,12 @@
 			"matchDepTypes": ["devDependencies"],
 			"automerge": true,
 			"matchUpdateTypes": ["minor", "patch"]
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"matchUpdateTypes": ["major"],
+			"enabled": false,
+			"description": "TypeScript 7 is a from-scratch native rewrite (ships as platform-specific binaries instead of a single npm package) and isn't a safe drop-in yet — Renovate itself couldn't even produce a working lockfile for it. Revisit once the toolchain (svelte-check, eslint) has caught up."
 		}
 	]
 }
