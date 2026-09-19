@@ -4,6 +4,7 @@
 	import { resolve } from '$app/paths';
 	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
 	import { translate } from '$lib/i18n';
+	import { printControl } from '$lib/stores/printControl.svelte';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const messages = $derived(data.messages);
@@ -14,7 +15,12 @@
 <div class="app-shell">
 	<header>
 		<a class="brand" href={homeHref}>{translate(messages, 'appTitle')}</a>
-		<div class="no-print">
+		<div class="header-actions no-print">
+			{#if printControl.visible}
+				<button type="button" class="print-button" onclick={() => printControl.onPrint?.()}>
+					{translate(messages, 'print.button')}
+				</button>
+			{/if}
 			<LanguageSwitcher currentLocale={locale} {messages} />
 		</div>
 	</header>
@@ -46,6 +52,20 @@
 		font-size: 1.25rem;
 		text-decoration: none;
 		color: var(--color-text);
+	}
+	.header-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+	}
+	.print-button {
+		padding: var(--space-2) var(--space-4);
+		border: 1px solid var(--color-accent);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		color: var(--color-accent-dark);
+		font-weight: 600;
+		cursor: pointer;
 	}
 	main {
 		flex: 1;
