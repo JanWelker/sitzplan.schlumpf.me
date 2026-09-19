@@ -20,10 +20,40 @@ describe('getSeatPosition', () => {
 		expect(getSeatPosition('sr', 46)).toBeUndefined(); // confirmed gap in the real numbering
 	});
 
-	it('computes the angle from the podium consistently with x/y', () => {
-		const pos = getSeatPosition('nr', 1);
-		expect(pos).toBeDefined();
-		expect(pos?.angleRad).toBeCloseTo(Math.atan2(-(pos?.y ?? 0), pos?.x ?? 0));
+	it('keeps physically close seats at similar angles, including near the podium', () => {
+		// A physically accurate layout can't have two seats that sit right
+		// next to each other end up rotated in wildly different directions.
+		// That was exactly the bug in the old angle-from-a-single-origin
+		// formula: it was fine for outer/side seats but blew up for seats
+		// close to the origin point itself (the front/center of the room),
+		// since atan2 is extremely sensitive to position there. Seat number
+		// order isn't physical adjacency, so find real neighbors by distance.
+		for (const chamber of ['nr', 'sr'] as const) {
+			const seatNumbers =
+				chamber === 'nr'
+					? Array.from({ length: 200 }, (_, i) => i + 1)
+					: [...Array.from({ length: 45 }, (_, i) => i + 1), 47];
+			const seats = seatNumbers
+				.map((n) => ({ n, pos: getSeatPosition(chamber, n)! }))
+				.filter((s) => s.pos);
+
+			for (const seat of seats) {
+				let nearest: (typeof seats)[number] | null = null;
+				let nearestDist = Infinity;
+				for (const other of seats) {
+					if (other.n === seat.n) continue;
+					const dist = Math.hypot(seat.pos.x - other.pos.x, seat.pos.y - other.pos.y);
+					if (dist < nearestDist) {
+						nearestDist = dist;
+						nearest = other;
+					}
+				}
+				if (!nearest || nearestDist > 35) continue;
+				let diff = Math.abs(seat.pos.angleRad - nearest.pos.angleRad);
+				if (diff > Math.PI) diff = 2 * Math.PI - diff;
+				expect(diff, `${chamber} seats ${seat.n} and ${nearest.n}`).toBeLessThan(Math.PI / 2);
+			}
+		}
 	});
 
 	it('places every seat at or behind the podium (y <= 0, front row is y = 0)', () => {

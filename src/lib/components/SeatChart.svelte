@@ -111,7 +111,7 @@
 				seat.parlGroupNumber != null
 					? (partyColors.get(seat.parlGroupNumber)?.color ?? FALLBACK_PARTY_COLOR)
 					: FALLBACK_PARTY_COLOR}
-			{@const rotateDeg = (placed.angleRad * 180) / Math.PI - 90}
+			{@const rotateDeg = (placed.angleRad * 180) / Math.PI}
 			<g
 				transform={`translate(${placed.x}, ${placed.y})`}
 				class="seat"
