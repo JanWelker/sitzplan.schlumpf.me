@@ -13,15 +13,18 @@
 		roster: SeatEntry[];
 		highlights: SeatHighlight[];
 		partyColors: Map<number, ParlGroupColor>;
-		hiddenGroups: Set<number>;
 		messages: Messages;
 		title: string;
 	}
 
-	let { arcCount, roster, highlights, partyColors, hiddenGroups, messages, title }: Props =
-		$props();
+	let { arcCount, roster, highlights, partyColors, messages, title }: Props = $props();
 
-	const SEAT_SIZE = 15;
+	// Wider than tall and rotated tangentially (see rotateDeg below) so seats
+	// read as tightly-packed tiles following the arc, like the official
+	// sitzordnung pages — a square rotated to the same angles reads as a
+	// sparse field of diamonds instead.
+	const SEAT_WIDTH = 15;
+	const SEAT_HEIGHT = 10;
 	/** Fixed draw order + visual encoding (color AND dash pattern, not color alone) for stacked role rings. */
 	const ROLE_ORDER: RoleKind[] = ['contester', 'submitter', 'rapporteur'];
 	const ROLE_STYLE: Record<RoleKind, { color: string; dash: string | undefined }> = {
@@ -78,7 +81,8 @@
 	const positions = $derived(
 		generateGroupedHemicycleLayout(
 			groupedSeats.map((g) => g.seats.length),
-			arcCount
+			arcCount,
+			{ innerRadius: 70, radiusStep: 24 }
 		)
 	);
 
@@ -86,7 +90,7 @@
 	const highlightByNumber = $derived(new Map(highlights.map((h) => [h.seatNumber, h])));
 
 	const bounds = $derived.by(() => {
-		const pad = SEAT_SIZE + 14;
+		const pad = SEAT_WIDTH + 10;
 		if (positions.length === 0) return { minX: -pad, maxX: pad, minY: -pad, maxY: pad };
 		const xs = positions.map((p) => p.x);
 		const ys = positions.map((p) => p.y);
@@ -94,7 +98,7 @@
 			minX: Math.min(...xs) - pad,
 			maxX: Math.max(...xs) + pad,
 			minY: Math.min(...ys) - pad,
-			maxY: SEAT_SIZE + 20
+			maxY: SEAT_WIDTH + 14
 		};
 	});
 
@@ -145,12 +149,10 @@
 				seat.parlGroupNumber != null
 					? (partyColors.get(seat.parlGroupNumber)?.color ?? FALLBACK_PARTY_COLOR)
 					: FALLBACK_PARTY_COLOR}
-			{@const dimmed = seat.parlGroupNumber != null && hiddenGroups.has(seat.parlGroupNumber)}
 			{@const rotateDeg = (pos.angleRad * 180) / Math.PI - 90}
 			<g
 				transform={`translate(${pos.x}, ${pos.y})`}
 				class="seat"
-				class:dimmed
 				role="button"
 				tabindex="0"
 				aria-label={ariaLabelFor(seat, highlight)}
@@ -163,7 +165,7 @@
 				{#if highlight}
 					{#each sortedRoles(highlight.roles) as role, ringIndex (role.kind + role.businessShortNumber)}
 						<circle
-							r={SEAT_SIZE / 2 + 4 + ringIndex * 3}
+							r={SEAT_WIDTH / 2 + 4 + ringIndex * 3}
 							fill="none"
 							stroke={ROLE_STYLE[role.kind].color}
 							stroke-width="2"
@@ -173,20 +175,23 @@
 				{/if}
 				<rect
 					transform={`rotate(${rotateDeg})`}
-					x={-SEAT_SIZE / 2}
-					y={-SEAT_SIZE / 2}
-					width={SEAT_SIZE}
-					height={SEAT_SIZE}
-					rx="1.5"
+					x={-SEAT_WIDTH / 2}
+					y={-SEAT_HEIGHT / 2}
+					width={SEAT_WIDTH}
+					height={SEAT_HEIGHT}
+					rx="1"
 					fill={groupColor}
 					class="seat-fill"
+					class:highlighted={!!highlight}
 				/>
 			</g>
 		{/each}
 	</svg>
-	{#if activeSeat}
-		<SeatTooltip seat={activeSeat.seat} highlight={activeSeat.highlight} {messages} />
-	{/if}
+	<div class="tooltip-slot">
+		{#if activeSeat}
+			<SeatTooltip seat={activeSeat.seat} highlight={activeSeat.highlight} {messages} />
+		{/if}
+	</div>
 </section>
 
 <style>
@@ -206,8 +211,17 @@
 		max-width: 720px;
 	}
 	@media print {
+		.seat-chart h2 {
+			font-size: 0.9rem;
+			margin: 0 0 4px;
+		}
 		svg {
+			/* Bound by height, not width — at full page width this chart's
+			   aspect ratio would alone be taller than an A4 landscape page. */
+			width: auto;
+			height: 6.2cm;
 			max-width: 100%;
+			margin: 0 auto;
 		}
 	}
 	.hemicycle-bg {
@@ -216,7 +230,11 @@
 	}
 	.seat-fill {
 		stroke: var(--color-seat-divider);
-		stroke-width: 1;
+		stroke-width: 0.75;
+		fill-opacity: 0.6;
+	}
+	.seat-fill.highlighted {
+		fill-opacity: 1;
 	}
 	.seat {
 		cursor: pointer;
@@ -226,7 +244,25 @@
 		stroke: var(--color-accent-dark);
 		stroke-width: 2;
 	}
-	.seat.dimmed {
-		opacity: 0.25;
+	/* Reserves space for the tooltip so hovering/focusing a seat never
+	   reflows the rest of the page — the tooltip is absolutely positioned
+	   inside this fixed-height slot instead of being inserted into flow. */
+	.tooltip-slot {
+		position: relative;
+		min-height: 110px;
+	}
+	.tooltip-slot :global(.seat-tooltip) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+	@media print {
+		/* The print view has its own static, named roster instead (see
+		   .highlighted-list in +page.svelte) — the hover-only tooltip slot
+		   would otherwise waste vertical space toward fitting one page. */
+		.tooltip-slot {
+			display: none;
+		}
 	}
 </style>

@@ -30,9 +30,6 @@ const fr: Messages = {
 		rosterUnavailable:
 			'Les données du plan des sièges sont momentanément indisponibles. Veuillez réessayer plus tard.'
 	},
-	legend: {
-		title: 'Groupes parlementaires'
-	},
 	seatTooltip: {
 		canton: 'Canton',
 		party: 'Groupe'
