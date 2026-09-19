@@ -28,6 +28,20 @@ function envelope(results: unknown[]) {
 }
 
 /**
+ * Extracts every value from a possibly OR-combined filter clause like
+ * `BusinessShortNumber eq '26.3533' or BusinessShortNumber eq '25.3235'`
+ * (string values) or `BusinessNumber eq 1 or BusinessNumber eq 2` (numeric).
+ * The real API batches lookups this way — see src/lib/api/businesses.ts,
+ * roles.ts, rapporteurs.ts — so the mock must too.
+ */
+function extractAll(filter: string, field: string, quoted: boolean): string[] {
+	const pattern = quoted
+		? new RegExp(`${field} eq '([^']+)'`, 'g')
+		: new RegExp(`${field} eq (\\d+)`, 'g');
+	return [...filter.matchAll(pattern)].map((m) => m[1]);
+}
+
+/**
  * Intercepts every call to the live ws.parlament.ch OData API with fixture
  * data recorded (via scripts/record-fixtures.ts) from the real API for the
  * Curia numbers exercised by this suite — so e2e runs are deterministic and
@@ -40,23 +54,25 @@ export async function mockODataRoutes(page: Page): Promise<void> {
 		const filter = decodeURIComponent(url.searchParams.get('$filter') ?? '');
 
 		if (entity === 'Business') {
-			const shortNumber = filter.match(/BusinessShortNumber eq '([^']+)'/)?.[1];
-			const row = shortNumber ? business[shortNumber] : null;
-			return route.fulfill({ json: envelope(row ? [row] : []) });
+			const shortNumbers = extractAll(filter, 'BusinessShortNumber', true);
+			const rows = shortNumbers
+				.map((n) => business[n])
+				.filter((row): row is BusinessRow => row != null);
+			return route.fulfill({ json: envelope(rows) });
 		}
 
 		if (entity === 'BusinessRole') {
-			const id = filter.match(/BusinessNumber eq (\d+)/)?.[1];
-			const shortNumber = id ? shortNumberForBusinessId(Number(id)) : undefined;
-			return route.fulfill({
-				json: envelope(shortNumber ? (businessRole[shortNumber] ?? []) : [])
-			});
+			const ids = extractAll(filter, 'BusinessNumber', false).map(Number);
+			const shortNumbers = ids.map(shortNumberForBusinessId).filter((n): n is string => n != null);
+			const rows = shortNumbers.flatMap((n) => businessRole[n] ?? []);
+			return route.fulfill({ json: envelope(rows) });
 		}
 
 		if (entity === 'Rapporteur') {
-			const id = filter.match(/BusinessNumber eq (\d+)/)?.[1];
-			const shortNumber = id ? shortNumberForBusinessId(Number(id)) : undefined;
-			return route.fulfill({ json: envelope(shortNumber ? (rapporteur[shortNumber] ?? []) : []) });
+			const ids = extractAll(filter, 'BusinessNumber', false).map(Number);
+			const shortNumbers = ids.map(shortNumberForBusinessId).filter((n): n is string => n != null);
+			const rows = shortNumbers.flatMap((n) => rapporteur[n] ?? []);
+			return route.fulfill({ json: envelope(rows) });
 		}
 
 		if (entity === 'SeatOrganisationNr') {

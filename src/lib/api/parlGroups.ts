@@ -18,8 +18,13 @@ export function normalizeColor(wireColor: string | null): string {
 	return /^[0-9a-f]{6}$/i.test(hex) ? `#${hex.toLowerCase()}` : FALLBACK_PARTY_COLOR;
 }
 
+const SELECT = ['ParlGroupNumber', 'ParlGroupAbbreviation', 'ParlGroupName', 'ParlGroupColour'];
+
 async function loadParlGroupColors(locale: Locale): Promise<ParlGroupColor[]> {
-	const rows = await queryOData<ParlGroupRow>('ParlGroup', locale, 'IsActive eq true');
+	const rows = await queryOData<ParlGroupRow>('ParlGroup', locale, {
+		filter: 'IsActive eq true',
+		select: SELECT
+	});
 	return rows.map((row) => ({
 		parlGroupNumber: row.ParlGroupNumber,
 		abbreviation: row.ParlGroupAbbreviation,

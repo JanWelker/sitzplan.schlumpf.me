@@ -17,8 +17,20 @@ const ENTITY_BY_CHAMBER: Record<Chamber, string> = {
 	sr: 'SeatOrganisationSr'
 };
 
+const SELECT = [
+	'SeatNumber',
+	'PersonNumber',
+	'FirstName',
+	'LastName',
+	'CantonAbbreviation',
+	'ParlGroupNumber',
+	'ParlGroupName'
+];
+
 async function loadSeatRoster(chamber: Chamber, locale: Locale): Promise<SeatEntry[]> {
-	const rows = await queryOData<SeatOrganisationRow>(ENTITY_BY_CHAMBER[chamber], locale);
+	const rows = await queryOData<SeatOrganisationRow>(ENTITY_BY_CHAMBER[chamber], locale, {
+		select: SELECT
+	});
 	return rows.map((row) => ({
 		seatNumber: row.SeatNumber,
 		personNumber: row.PersonNumber,
