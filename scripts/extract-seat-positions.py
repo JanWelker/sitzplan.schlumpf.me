@@ -10,7 +10,7 @@ of an invented layout.
 
 Usage:
     python3 -m venv venv && source venv/bin/activate
-    pip install pymupdf requests
+    pip install -r scripts/requirements.txt
     python3 scripts/extract-seat-positions.py
 
 Re-run this whenever parlament.ch republishes updated seat plans (e.g. after

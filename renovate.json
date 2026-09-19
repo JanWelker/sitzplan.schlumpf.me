@@ -1,17 +1,17 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended", ":semanticCommits", "schedule:weekly"],
+	"extends": ["config:recommended", ":semanticCommits"],
 	"labels": ["dependencies"],
+	"prConcurrentLimit": 0,
+	"prHourlyLimit": 0,
+	"platformAutomerge": true,
+	"automerge": true,
+	"automergeType": "pr",
 	"lockFileMaintenance": {
 		"enabled": true,
 		"schedule": ["before 6am on monday"]
 	},
 	"packageRules": [
-		{
-			"matchDepTypes": ["devDependencies"],
-			"automerge": true,
-			"matchUpdateTypes": ["minor", "patch"]
-		},
 		{
 			"matchPackageNames": ["typescript"],
 			"matchUpdateTypes": ["major"],
