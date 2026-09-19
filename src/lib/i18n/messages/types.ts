@@ -41,6 +41,11 @@ export interface Messages {
 		source: string;
 		disclaimer: string;
 	};
+	print: {
+		button: string;
+		highlightedTitle: string;
+		searchedNumbers: string;
+	};
 	loading: string;
 	noResults: string;
 }

@@ -46,6 +46,11 @@ const fr: Messages = {
 		disclaimer:
 			'Représentation non officielle, sans valeur de publication officielle de l’Assemblée fédérale.'
 	},
+	print: {
+		button: 'Imprimer',
+		highlightedTitle: 'Personnes mises en évidence',
+		searchedNumbers: 'Numéro(s) d’objet : {numbers}'
+	},
 	loading: 'Chargement …',
 	noResults: 'Veuillez saisir un ou plusieurs numéros d’objet.'
 };

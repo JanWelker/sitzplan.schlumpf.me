@@ -43,6 +43,11 @@ const de: Messages = {
 		source: 'Quelle: Parlamentsdienste der Bundesversammlung, Bern. Daten abgerufen am {date}.',
 		disclaimer: 'Inoffizielle Darstellung, keine amtliche Publikation der Bundesversammlung.'
 	},
+	print: {
+		button: 'Drucken',
+		highlightedTitle: 'Hervorgehobene Personen',
+		searchedNumbers: 'Geschäftsnummer(n): {numbers}'
+	},
 	loading: 'Wird geladen …',
 	noResults: 'Bitte eine oder mehrere Geschäftsnummern eingeben.'
 };

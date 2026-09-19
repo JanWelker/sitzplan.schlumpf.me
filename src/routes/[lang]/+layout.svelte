@@ -14,7 +14,9 @@
 <div class="app-shell">
 	<header>
 		<a class="brand" href={homeHref}>{translate(messages, 'appTitle')}</a>
-		<LanguageSwitcher currentLocale={locale} {messages} />
+		<div class="no-print">
+			<LanguageSwitcher currentLocale={locale} {messages} />
+		</div>
 	</header>
 	<main>
 		{@render children()}
@@ -54,5 +56,12 @@
 		border-top: 1px solid var(--color-border);
 		font-size: 0.8rem;
 		color: var(--color-text-muted);
+	}
+
+	@media print {
+		.app-shell {
+			max-width: none;
+			padding: 0;
+		}
 	}
 </style>

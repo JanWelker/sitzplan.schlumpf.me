@@ -46,6 +46,11 @@ const it: Messages = {
 		disclaimer:
 			'Rappresentazione non ufficiale, priva di valore di pubblicazione ufficiale dell’Assemblea federale.'
 	},
+	print: {
+		button: 'Stampa',
+		highlightedTitle: 'Persone evidenziate',
+		searchedNumbers: 'Numero/i di oggetto: {numbers}'
+	},
 	loading: 'Caricamento …',
 	noResults: 'Inserisci uno o più numeri di oggetto.'
 };
