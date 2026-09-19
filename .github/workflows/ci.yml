@@ -37,6 +37,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify Jekyll is disabled for the build output
+        # GitHub Pages branch deploys run Jekyll by default, which silently
+        # drops any directory starting with "_" — including SvelteKit's
+        # _app/ build output. This once shipped a page whose HTML loaded
+        # but every script/stylesheet 404'd. See static/.nojekyll and
+        # scripts/smoke-test.mjs (which catches this for a live deploy).
+        run: test -f build/.nojekyll
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 

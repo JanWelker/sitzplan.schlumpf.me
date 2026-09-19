@@ -41,3 +41,14 @@ jobs:
           # the same branch. See .github/workflows/pr-preview.yml.
           force: false
           clean-exclude: pr-preview
+
+      - name: Wait for GitHub Pages / CDN to pick up the new deployment
+        run: sleep 20
+
+      - name: Smoke test the live deployment
+        # Verifies the actually-served production page and its assets, not
+        # just the local build — catches hosting-layer failures (like the
+        # Jekyll issue this script's comment explains) that no local test
+        # can see. Skips gracefully (not a failure) if the custom domain
+        # isn't reachable yet, e.g. DNS not configured.
+        run: node scripts/smoke-test.mjs "https://sitzplan.schlumpf.me/de"
