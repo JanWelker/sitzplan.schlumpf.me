@@ -69,14 +69,26 @@ npm run preview
 ```
 
 The production build is a fully static site (`@sveltejs/adapter-static`),
-deployed to GitHub Pages via `.github/workflows/deploy.yml` on every push to
-`main`. `.github/workflows/ci.yml` runs typecheck, lint, unit, and e2e tests
-on every push and pull request.
+published to the `gh-pages` branch via `.github/workflows/deploy.yml` on
+every push to `main` (GitHub Pages is configured to deploy from that
+branch). `.github/workflows/ci.yml` runs typecheck, lint, unit, and e2e
+tests on every push and pull request.
 
 The custom domain is configured via `static/CNAME`. To point a domain at
 this site, add a `CNAME` DNS record for the subdomain to
 `<owner>.github.io.`, then enable "Enforce HTTPS" in the repository's
 Pages settings once DNS has propagated.
+
+### PR previews
+
+Every pull request gets its own live preview, deployed to
+`/pr-preview/pr-<number>/` on the same `gh-pages` branch by
+`.github/workflows/pr-preview.yml` (via
+[`rossjrw/pr-preview-action`](https://github.com/rossjrw/pr-preview-action)),
+with a link posted as a PR comment and updated on every push. The preview
+build is a separate `npm run build` with `BASE_PATH=/pr-preview/pr-<number>`
+so internal links resolve correctly at that subpath (see `vite.config.ts`).
+Previews are removed automatically when the PR is closed.
 
 ## License
 

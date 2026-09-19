@@ -10,7 +10,11 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
-			adapter: adapter()
+			adapter: adapter(),
+			// Lets PR preview builds be served from a subpath (e.g.
+			// /pr-preview/pr-42) without every internal link breaking — see
+			// .github/workflows/pr-preview.yml. Empty for the production build.
+			paths: { base: (process.env.BASE_PATH ?? '') as '' | `/${string}` }
 		})
 	],
 	test: {
