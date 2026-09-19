@@ -1,1 +1,0 @@
-import{R as e}from"./Du2nmZbp.js";var t=e({visible:!1,onPrint:null});export{t};
