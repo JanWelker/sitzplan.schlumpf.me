@@ -20,10 +20,9 @@
 
 	let { chamber, roster, highlights, partyColors, messages, title }: Props = $props();
 
-	// Plain axis-aligned squares, matching the official parlament.ch style —
-	// no per-seat rotation. Rotating each tile tangentially to its row's
-	// curve reads as "twisted" wherever a row curves sharply (the outer
-	// arcs), even though the underlying position is correct.
+	// Plain circles — rotation-free by construction, so there's no risk of
+	// the "twisted" look a rotated rectangle/square gets wherever a row
+	// curves sharply (the outer arcs).
 	const SEAT_SIZE = 11;
 	/** Fixed draw order + visual encoding (color AND dash pattern, not color alone) for stacked role rings. */
 	const ROLE_ORDER: RoleKind[] = ['contester', 'submitter', 'rapporteur'];
@@ -133,12 +132,8 @@
 						/>
 					{/each}
 				{/if}
-				<rect
-					x={-SEAT_SIZE / 2}
-					y={-SEAT_SIZE / 2}
-					width={SEAT_SIZE}
-					height={SEAT_SIZE}
-					rx="1"
+				<circle
+					r={SEAT_SIZE / 2}
 					fill={groupColor}
 					class="seat-fill"
 					class:highlighted={!!highlight}
