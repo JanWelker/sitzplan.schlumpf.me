@@ -47,7 +47,8 @@ test('the print page size is set to A4 landscape', async ({ page }) => {
 				const found = findPageRule(sheet.cssRules);
 				if (found) return found;
 			} catch {
-				// Cross-origin stylesheets (e.g. Google Fonts) throw on .cssRules — skip them.
+				// A cross-origin stylesheet would throw on .cssRules — skip it. (The
+				// app itself loads no external stylesheets, but stay defensive.)
 			}
 		}
 		return null;

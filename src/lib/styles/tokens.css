@@ -15,7 +15,7 @@
 	--color-danger: #b3261e;
 	--color-danger-bg: #fdecea;
 
-	--font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-sans: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 	--radius-sm: 4px;
 	--radius-md: 8px;

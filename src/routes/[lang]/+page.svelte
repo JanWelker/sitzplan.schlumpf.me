@@ -10,6 +10,7 @@
 	import { fetchSeatRoster, type SeatEntry } from '$lib/api/seatRoster';
 	import { fetchParlGroupColorIndex, type ParlGroupColor } from '$lib/api/parlGroups';
 	import { translate } from '$lib/i18n';
+	import { printControl } from '$lib/stores/printControl.svelte';
 
 	let { data }: { data: LayoutData } = $props();
 	const messages = $derived(data.messages);
@@ -85,6 +86,18 @@
 	}
 
 	const hasHighlights = $derived((result?.nr.length ?? 0) > 0 || (result?.sr.length ?? 0) > 0);
+
+	// The print button itself lives in the layout header, next to the
+	// language switcher, but only this page knows whether there's anything
+	// worth printing and what pressing it should do.
+	$effect(() => {
+		printControl.visible = hasHighlights;
+		printControl.onPrint = printPage;
+		return () => {
+			printControl.visible = false;
+			printControl.onPrint = null;
+		};
+	});
 </script>
 
 <svelte:head>
@@ -105,14 +118,6 @@
 	<p class="print-only searched-numbers">
 		{translate(messages, 'print.searchedNumbers', { numbers: searchValue })}
 	</p>
-
-	{#if hasHighlights}
-		<div class="toolbar no-print">
-			<button type="button" class="print-button" onclick={printPage}>
-				{translate(messages, 'print.button')}
-			</button>
-		</div>
-	{/if}
 
 	{#if result.parseErrors.length > 0 || result.businessErrors.length > 0}
 		<ul class="issues">
@@ -231,18 +236,6 @@
 	.issues {
 		color: var(--color-danger);
 		font-size: 0.875rem;
-	}
-	.toolbar {
-		margin-top: var(--space-3);
-	}
-	.print-button {
-		padding: var(--space-2) var(--space-4);
-		border: 1px solid var(--color-accent);
-		border-radius: var(--radius-sm);
-		background: var(--color-bg);
-		color: var(--color-accent-dark);
-		font-weight: 600;
-		cursor: pointer;
 	}
 	.searched-numbers {
 		font-weight: 600;
