@@ -133,7 +133,7 @@
 		{#if result.nr.length > 0}
 			<div class="chart-block">
 				<SeatChart
-					arcCount={8}
+					chamber="nr"
 					roster={nrRoster}
 					highlights={result.nr}
 					partyColors={parlGroupIndex}
@@ -162,7 +162,7 @@
 		{#if result.sr.length > 0}
 			<div class="chart-block">
 				<SeatChart
-					arcCount={5}
+					chamber="sr"
 					roster={srRoster}
 					highlights={result.sr}
 					partyColors={parlGroupIndex}
