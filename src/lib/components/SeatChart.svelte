@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { generateGroupedHemicycleLayout } from '$lib/layout/hemicycle';
+	import { getSeatPosition, getChamberBounds } from '$lib/layout/hemicycle';
 	import type { SeatEntry } from '$lib/api/seatRoster';
 	import type { SeatHighlight, RoleKind } from '$lib/highlight/buildHighlightSet';
 	import type { ParlGroupColor } from '$lib/api/parlGroups';
+	import type { Chamber } from '$lib/api/types';
 	import type { Messages } from '$lib/i18n/messages/types';
 	import { translate } from '$lib/i18n';
 	import { FALLBACK_PARTY_COLOR } from '$lib/config/partyColors';
 	import SeatTooltip from './SeatTooltip.svelte';
 
 	interface Props {
-		arcCount: number;
+		chamber: Chamber;
 		roster: SeatEntry[];
 		highlights: SeatHighlight[];
 		partyColors: Map<number, ParlGroupColor>;
@@ -17,14 +18,13 @@
 		title: string;
 	}
 
-	let { arcCount, roster, highlights, partyColors, messages, title }: Props = $props();
+	let { chamber, roster, highlights, partyColors, messages, title }: Props = $props();
 
-	// Wider than tall and rotated tangentially (see rotateDeg below) so seats
-	// read as tightly-packed tiles following the arc, like the official
-	// sitzordnung pages — a square rotated to the same angles reads as a
-	// sparse field of diamonds instead.
-	const SEAT_WIDTH = 15;
-	const SEAT_HEIGHT = 10;
+	// Wider than tall and rotated tangentially to the seat's angle from the
+	// podium, so tiles read as following the real arcs rather than a sparse
+	// field of diamonds.
+	const SEAT_WIDTH = 13;
+	const SEAT_HEIGHT = 9;
 	/** Fixed draw order + visual encoding (color AND dash pattern, not color alone) for stacked role rings. */
 	const ROLE_ORDER: RoleKind[] = ['contester', 'submitter', 'rapporteur'];
 	const ROLE_STYLE: Record<RoleKind, { color: string; dash: string | undefined }> = {
@@ -33,72 +33,34 @@
 		rapporteur: { color: '#2e7d32', dash: undefined }
 	};
 
-	/**
-	 * Political-spectrum order, right to left (angle 0 = rightmost, increasing
-	 * toward the left) — so e.g. SVP renders on the right and SP on the left,
-	 * matching how Swiss media conventionally draw the chamber. Any group not
-	 * in this list (independents, a newly formed group) sorts after the
-	 * rightmost known group, ordered by ParlGroupNumber for stability.
-	 */
-	const CANONICAL_GROUP_ORDER = ['V', 'RL', 'M-E', 'GL', 'G', 'S'];
-
-	function groupOrderIndex(parlGroupNumber: number | null): number {
-		const abbreviation =
-			parlGroupNumber != null ? partyColors.get(parlGroupNumber)?.abbreviation : undefined;
-		const index = abbreviation ? CANONICAL_GROUP_ORDER.indexOf(abbreviation) : -1;
-		return index === -1 ? CANONICAL_GROUP_ORDER.length : index;
+	interface PlacedSeat {
+		seat: SeatEntry;
+		x: number;
+		y: number;
+		angleRad: number;
 	}
 
-	interface SeatGroup {
-		parlGroupNumber: number | null;
-		seats: SeatEntry[];
-	}
-
-	const groupedSeats = $derived.by((): SeatGroup[] => {
-		// Transient scratch value, discarded once flattened into the returned
-		// array below — never stored as $state, so a plain Map is correct.
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity
-		const byGroup = new Map<number | null, SeatEntry[]>();
+	const placedSeats = $derived.by((): PlacedSeat[] => {
+		const placed: PlacedSeat[] = [];
 		for (const seat of roster) {
-			const key = seat.parlGroupNumber;
-			const list = byGroup.get(key);
-			if (list) list.push(seat);
-			else byGroup.set(key, [seat]);
+			const pos = getSeatPosition(chamber, seat.seatNumber);
+			if (!pos) continue; // Not part of the digitized real seat plan (shouldn't happen for a current member).
+			placed.push({ seat, x: pos.x, y: pos.y, angleRad: pos.angleRad });
 		}
-		return [...byGroup.entries()]
-			.map(([parlGroupNumber, seats]) => ({
-				parlGroupNumber,
-				seats: [...seats].sort((a, b) => a.seatNumber - b.seatNumber)
-			}))
-			.sort((a, b) => {
-				const orderDiff = groupOrderIndex(a.parlGroupNumber) - groupOrderIndex(b.parlGroupNumber);
-				if (orderDiff !== 0) return orderDiff;
-				return (a.parlGroupNumber ?? 0) - (b.parlGroupNumber ?? 0);
-			});
+		return placed;
 	});
 
-	const orderedSeats = $derived(groupedSeats.flatMap((g) => g.seats));
-	const positions = $derived(
-		generateGroupedHemicycleLayout(
-			groupedSeats.map((g) => g.seats.length),
-			arcCount,
-			{ innerRadius: 70, radiusStep: 24 }
-		)
-	);
-
-	const rosterByNumber = $derived(new Map(roster.map((s) => [s.seatNumber, s])));
 	const highlightByNumber = $derived(new Map(highlights.map((h) => [h.seatNumber, h])));
+	const rosterByNumber = $derived(new Map(roster.map((s) => [s.seatNumber, s])));
 
 	const bounds = $derived.by(() => {
 		const pad = SEAT_WIDTH + 10;
-		if (positions.length === 0) return { minX: -pad, maxX: pad, minY: -pad, maxY: pad };
-		const xs = positions.map((p) => p.x);
-		const ys = positions.map((p) => p.y);
+		const b = getChamberBounds(chamber);
 		return {
-			minX: Math.min(...xs) - pad,
-			maxX: Math.max(...xs) + pad,
-			minY: Math.min(...ys) - pad,
-			maxY: SEAT_WIDTH + 14
+			minX: b.minX - pad,
+			maxX: b.maxX + pad,
+			minY: b.minY - pad,
+			maxY: b.maxY + pad
 		};
 	});
 
@@ -142,16 +104,16 @@
 			rx="12"
 			class="hemicycle-bg"
 		/>
-		{#each orderedSeats as seat, i (seat.seatNumber)}
-			{@const pos = positions[i]}
+		{#each placedSeats as placed (placed.seat.seatNumber)}
+			{@const seat = placed.seat}
 			{@const highlight = highlightByNumber.get(seat.seatNumber)}
 			{@const groupColor =
 				seat.parlGroupNumber != null
 					? (partyColors.get(seat.parlGroupNumber)?.color ?? FALLBACK_PARTY_COLOR)
 					: FALLBACK_PARTY_COLOR}
-			{@const rotateDeg = (pos.angleRad * 180) / Math.PI - 90}
+			{@const rotateDeg = (placed.angleRad * 180) / Math.PI - 90}
 			<g
-				transform={`translate(${pos.x}, ${pos.y})`}
+				transform={`translate(${placed.x}, ${placed.y})`}
 				class="seat"
 				role="button"
 				tabindex="0"
