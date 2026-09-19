@@ -52,3 +52,37 @@ a {
 button {
 	font-family: inherit;
 }
+
+/* Print: a landscape hand-out of the seat chart(s), with the interactive
+   chrome (search form, language switcher, hover-only tooltips) replaced by
+   a static list of highlighted people's names — see .print-only usage in
+   +page.svelte and [lang]/+layout.svelte. */
+.print-only {
+	display: none;
+}
+
+@media print {
+	@page {
+		size: A4 landscape;
+		margin: 1.2cm;
+	}
+
+	.no-print {
+		display: none !important;
+	}
+
+	.print-only {
+		display: block;
+	}
+
+	/* Seat/party fill colors are backgrounds — without this, most browsers
+	   strip them by default when printing. */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	body {
+		background: #fff;
+	}
+}

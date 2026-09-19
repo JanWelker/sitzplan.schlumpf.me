@@ -102,21 +102,51 @@
 	function unseatedReasonKey(reason: string): string {
 		return reason === 'not-currently-seated' ? 'notCurrentlySeated' : reason;
 	}
+
+	function partyAbbreviation(parlGroupNumber: number | null): string {
+		if (parlGroupNumber == null) return '';
+		return parlGroupIndex.get(parlGroupNumber)?.abbreviation ?? '';
+	}
+
+	function rolesLabel(roles: { kind: string }[]): string {
+		const uniqueKinds = [...new Set(roles.map((r) => r.kind))];
+		return uniqueKinds.map((kind) => translate(messages, `roles.${kind}`)).join(', ');
+	}
+
+	function printPage() {
+		window.print();
+	}
+
+	const hasHighlights = $derived((result?.nr.length ?? 0) > 0 || (result?.sr.length ?? 0) > 0);
 </script>
 
 <svelte:head>
 	<title>{translate(messages, 'appTitle')}</title>
 </svelte:head>
 
-<p class="tagline">{translate(messages, 'tagline')}</p>
+<p class="tagline no-print">{translate(messages, 'tagline')}</p>
 
-<SearchBar bind:value={searchValue} onSubmit={runSearch} {messages} {loading} />
+<div class="no-print">
+	<SearchBar bind:value={searchValue} onSubmit={runSearch} {messages} {loading} />
+</div>
 
 {#if loading}
-	<p class="status">{translate(messages, 'loading')}</p>
+	<p class="status no-print">{translate(messages, 'loading')}</p>
 {:else if loadError || result?.rosterUnavailable}
-	<p class="status error">{translate(messages, 'errors.rosterUnavailable')}</p>
+	<p class="status error no-print">{translate(messages, 'errors.rosterUnavailable')}</p>
 {:else if hasSearched && result}
+	<p class="print-only searched-numbers">
+		{translate(messages, 'print.searchedNumbers', { numbers: searchValue })}
+	</p>
+
+	{#if hasHighlights}
+		<div class="toolbar no-print">
+			<button type="button" class="print-button" onclick={printPage}>
+				{translate(messages, 'print.button')}
+			</button>
+		</div>
+	{/if}
+
 	{#if result.parseErrors.length > 0 || result.businessErrors.length > 0}
 		<ul class="issues">
 			{#each result.parseErrors as token (token)}
@@ -144,26 +174,64 @@
 
 	<div class="charts">
 		{#if result.nr.length > 0}
-			<SeatChart
-				arcCount={8}
-				roster={nrRoster}
-				highlights={result.nr}
-				partyColors={parlGroupIndex}
-				{hiddenGroups}
-				{messages}
-				title={translate(messages, 'chambers.nr')}
-			/>
+			<div class="chart-block">
+				<SeatChart
+					arcCount={8}
+					roster={nrRoster}
+					highlights={result.nr}
+					partyColors={parlGroupIndex}
+					{hiddenGroups}
+					{messages}
+					title={translate(messages, 'chambers.nr')}
+				/>
+				<div class="print-only highlighted-list">
+					<h3>
+						{translate(messages, 'print.highlightedTitle')} — {translate(messages, 'chambers.nr')}
+					</h3>
+					<ul>
+						{#each result.nr as h (h.seatNumber)}
+							<li>
+								<strong>{h.firstName} {h.lastName}</strong>
+								<span
+									>{translate(messages, 'seatTooltip.canton')}: {h.cantonAbbreviation ?? '–'} ·
+									{partyAbbreviation(h.parlGroupNumber)}</span
+								>
+								<span>{rolesLabel(h.roles)}</span>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			</div>
 		{/if}
 		{#if result.sr.length > 0}
-			<SeatChart
-				arcCount={5}
-				roster={srRoster}
-				highlights={result.sr}
-				partyColors={parlGroupIndex}
-				{hiddenGroups}
-				{messages}
-				title={translate(messages, 'chambers.sr')}
-			/>
+			<div class="chart-block">
+				<SeatChart
+					arcCount={5}
+					roster={srRoster}
+					highlights={result.sr}
+					partyColors={parlGroupIndex}
+					{hiddenGroups}
+					{messages}
+					title={translate(messages, 'chambers.sr')}
+				/>
+				<div class="print-only highlighted-list">
+					<h3>
+						{translate(messages, 'print.highlightedTitle')} — {translate(messages, 'chambers.sr')}
+					</h3>
+					<ul>
+						{#each result.sr as h (h.seatNumber)}
+							<li>
+								<strong>{h.firstName} {h.lastName}</strong>
+								<span
+									>{translate(messages, 'seatTooltip.canton')}: {h.cantonAbbreviation ?? '–'} ·
+									{partyAbbreviation(h.parlGroupNumber)}</span
+								>
+								<span>{rolesLabel(h.roles)}</span>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			</div>
 		{/if}
 	</div>
 
@@ -209,11 +277,55 @@
 		color: var(--color-danger);
 		font-size: 0.875rem;
 	}
+	.toolbar {
+		margin-top: var(--space-3);
+	}
+	.print-button {
+		padding: var(--space-2) var(--space-4);
+		border: 1px solid var(--color-accent);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		color: var(--color-accent-dark);
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.searched-numbers {
+		font-weight: 600;
+		margin-bottom: var(--space-3);
+	}
 	.charts {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-5);
 		margin-top: var(--space-4);
+	}
+	.chart-block {
+		flex: 1 1 420px;
+		min-width: 280px;
+	}
+	.highlighted-list h3 {
+		font-size: 0.95rem;
+		margin: var(--space-3) 0 var(--space-2);
+	}
+	.highlighted-list ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		columns: 2;
+		column-gap: var(--space-4);
+	}
+	.highlighted-list li {
+		break-inside: avoid;
+		padding: var(--space-1) 0;
+		font-size: 0.8rem;
+		display: flex;
+		flex-direction: column;
+	}
+	@media print {
+		.chart-block {
+			flex-basis: 100%;
+			page-break-inside: avoid;
+		}
 	}
 	.unseated {
 		margin-top: var(--space-4);

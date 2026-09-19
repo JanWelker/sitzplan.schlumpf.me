@@ -205,6 +205,11 @@
 		height: auto;
 		max-width: 720px;
 	}
+	@media print {
+		svg {
+			max-width: 100%;
+		}
+	}
 	.hemicycle-bg {
 		fill: var(--color-hemicycle-bg);
 		opacity: 0.35;
