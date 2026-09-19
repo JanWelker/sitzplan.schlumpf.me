@@ -94,14 +94,6 @@
 <section class="seat-chart" aria-labelledby={`${title}-heading`}>
 	<h2 id={`${title}-heading`}>{title}</h2>
 	<svg {viewBox} role="img" aria-label={title}>
-		<rect
-			x={bounds.minX}
-			y={bounds.minY}
-			width={bounds.maxX - bounds.minX}
-			height={bounds.maxY - bounds.minY}
-			rx="12"
-			class="hemicycle-bg"
-		/>
 		{#each placedSeats as placed (placed.seat.seatNumber)}
 			{@const seat = placed.seat}
 			{@const highlight = highlightByNumber.get(seat.seatNumber)}
@@ -171,10 +163,6 @@
 			max-width: 100%;
 			margin: 0 auto;
 		}
-	}
-	.hemicycle-bg {
-		fill: var(--color-hemicycle-bg);
-		opacity: 0.35;
 	}
 	.seat-fill {
 		stroke: var(--color-seat-divider);
