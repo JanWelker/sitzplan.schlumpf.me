@@ -1,0 +1,784 @@
+[
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=1,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=1,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 1,
+		"SeatNumber": 1,
+		"PersonNumber": 4055,
+		"PersonIdCode": 2768,
+		"FirstName": "Stefan",
+		"LastName": "Engler",
+		"CantonAbbreviation": "GR",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=2,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=2,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 2,
+		"SeatNumber": 2,
+		"PersonNumber": 4189,
+		"PersonIdCode": 3065,
+		"FirstName": "Thierry",
+		"LastName": "Burkart",
+		"CantonAbbreviation": "AG",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=3,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=3,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 3,
+		"SeatNumber": 3,
+		"PersonNumber": 4172,
+		"PersonIdCode": 3092,
+		"FirstName": "Werner",
+		"LastName": "Salzmann",
+		"CantonAbbreviation": "BE",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=4,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=4,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 4,
+		"SeatNumber": 4,
+		"PersonNumber": 15601,
+		"PersonIdCode": 15601,
+		"FirstName": "Severin",
+		"LastName": "Brüngger",
+		"CantonAbbreviation": "SH",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=5,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=5,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 5,
+		"SeatNumber": 5,
+		"PersonNumber": 4332,
+		"PersonIdCode": 3227,
+		"FirstName": "Mathilde",
+		"LastName": "Crevoisier Crelier",
+		"CantonAbbreviation": "JU",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=6,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=6,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 6,
+		"SeatNumber": 6,
+		"PersonNumber": 4283,
+		"PersonIdCode": 3175,
+		"FirstName": "Franziska",
+		"LastName": "Roth",
+		"CantonAbbreviation": "SO",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=7,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=7,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 7,
+		"SeatNumber": 7,
+		"PersonNumber": 4240,
+		"PersonIdCode": 3195,
+		"FirstName": "Charles",
+		"LastName": "Juillard",
+		"CantonAbbreviation": "JU",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=8,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=8,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 8,
+		"SeatNumber": 8,
+		"PersonNumber": 3897,
+		"PersonIdCode": 2700,
+		"FirstName": "Tiana Angelina",
+		"LastName": "Moser",
+		"CantonAbbreviation": "ZH",
+		"ParlGroupNumber": 137,
+		"ParlGroupName": "Grünliberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=9,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=9,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 9,
+		"SeatNumber": 9,
+		"PersonNumber": 4303,
+		"PersonIdCode": 3200,
+		"FirstName": "Marianne",
+		"LastName": "Maret",
+		"CantonAbbreviation": "VS",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=10,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=10,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 10,
+		"SeatNumber": 10,
+		"PersonNumber": 10802,
+		"PersonIdCode": 10802,
+		"FirstName": "Benjamin",
+		"LastName": "Mühlemann",
+		"CantonAbbreviation": "GL",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=11,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=11,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 11,
+		"SeatNumber": 11,
+		"PersonNumber": 4204,
+		"PersonIdCode": 3105,
+		"FirstName": "Beat",
+		"LastName": "Rieder",
+		"CantonAbbreviation": "VS",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=12,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=12,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 12,
+		"SeatNumber": 12,
+		"PersonNumber": 4072,
+		"PersonIdCode": 2776,
+		"FirstName": "Fabio",
+		"LastName": "Regazzi",
+		"CantonAbbreviation": "TI",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=13,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=13,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 13,
+		"SeatNumber": 13,
+		"PersonNumber": 4237,
+		"PersonIdCode": 3136,
+		"FirstName": "Benedikt",
+		"LastName": "Würth",
+		"CantonAbbreviation": "SG",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=14,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=14,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 14,
+		"SeatNumber": 14,
+		"PersonNumber": 4159,
+		"PersonIdCode": 3067,
+		"FirstName": "Marco",
+		"LastName": "Chiesa",
+		"CantonAbbreviation": "TI",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=15,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=15,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 15,
+		"SeatNumber": 15,
+		"PersonNumber": 4325,
+		"PersonIdCode": 3220,
+		"FirstName": "Isabelle",
+		"LastName": "Chassot",
+		"CantonAbbreviation": "FR",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=16,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=16,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 16,
+		"SeatNumber": 16,
+		"PersonNumber": 4241,
+		"PersonIdCode": 3196,
+		"FirstName": "Jakob",
+		"LastName": "Stark",
+		"CantonAbbreviation": "TG",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=17,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=17,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 17,
+		"SeatNumber": 17,
+		"PersonNumber": 4249,
+		"PersonIdCode": 3141,
+		"FirstName": "Marianne",
+		"LastName": "Binder-Keller",
+		"CantonAbbreviation": "AG",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=18,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=18,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 18,
+		"SeatNumber": 18,
+		"PersonNumber": 491,
+		"PersonIdCode": 2513,
+		"FirstName": "Pierre-Yves",
+		"LastName": "Maillard",
+		"CantonAbbreviation": "VD",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=19,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=19,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 19,
+		"SeatNumber": 19,
+		"PersonNumber": 1159,
+		"PersonIdCode": 2631,
+		"FirstName": "Pirmin",
+		"LastName": "Schwander",
+		"CantonAbbreviation": "SZ",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=20,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=20,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 20,
+		"SeatNumber": 20,
+		"PersonNumber": 4224,
+		"PersonIdCode": 3125,
+		"FirstName": "Flavia",
+		"LastName": "Wasserfallen",
+		"CantonAbbreviation": "BE",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=21,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=21,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 21,
+		"SeatNumber": 21,
+		"PersonNumber": 4243,
+		"PersonIdCode": 3198,
+		"FirstName": "Heidi",
+		"LastName": "Z'graggen",
+		"CantonAbbreviation": "UR",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=22,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=22,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 22,
+		"SeatNumber": 22,
+		"PersonNumber": 4244,
+		"PersonIdCode": 3199,
+		"FirstName": "Mathias",
+		"LastName": "Zopfi",
+		"CantonAbbreviation": "GL",
+		"ParlGroupNumber": 6,
+		"ParlGroupName": "Grüne Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=23,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=23,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 23,
+		"SeatNumber": 23,
+		"PersonNumber": 4056,
+		"PersonIdCode": 2767,
+		"FirstName": "Daniel",
+		"LastName": "Fässler",
+		"CantonAbbreviation": "AI",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=24,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=24,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 24,
+		"SeatNumber": 24,
+		"PersonNumber": 806,
+		"PersonIdCode": 2569,
+		"FirstName": "Maya",
+		"LastName": "Graf",
+		"CantonAbbreviation": "BL",
+		"ParlGroupNumber": 6,
+		"ParlGroupName": "Grüne Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=25,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=25,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 25,
+		"SeatNumber": 25,
+		"PersonNumber": 4181,
+		"PersonIdCode": 3075,
+		"FirstName": "Andrea",
+		"LastName": "Gmür-Schönenberger",
+		"CantonAbbreviation": "LU",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=26,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=26,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 26,
+		"SeatNumber": 26,
+		"PersonNumber": 4260,
+		"PersonIdCode": 3152,
+		"FirstName": "Fabien",
+		"LastName": "Fivaz",
+		"CantonAbbreviation": "NE",
+		"ParlGroupNumber": 6,
+		"ParlGroupName": "Grüne Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=27,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=27,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 27,
+		"SeatNumber": 27,
+		"PersonNumber": 4151,
+		"PersonIdCode": 3052,
+		"FirstName": "Josef",
+		"LastName": "Dittli",
+		"CantonAbbreviation": "UR",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=28,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=28,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 28,
+		"SeatNumber": 28,
+		"PersonNumber": 10839,
+		"PersonIdCode": 10839,
+		"FirstName": "Mauro",
+		"LastName": "Poggia",
+		"CantonAbbreviation": "GE",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=29,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=29,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 29,
+		"SeatNumber": 29,
+		"PersonNumber": 4116,
+		"PersonIdCode": 3023,
+		"FirstName": "Petra",
+		"LastName": "Gössi",
+		"CantonAbbreviation": "SZ",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=30,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=30,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 30,
+		"SeatNumber": 30,
+		"PersonNumber": 4261,
+		"PersonIdCode": 3153,
+		"FirstName": "Esther",
+		"LastName": "Friedli",
+		"CantonAbbreviation": "SG",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=31,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=31,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 31,
+		"SeatNumber": 31,
+		"PersonNumber": 4207,
+		"PersonIdCode": 3108,
+		"FirstName": "Damian",
+		"LastName": "Müller",
+		"CantonAbbreviation": "LU",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=32,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=32,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 32,
+		"SeatNumber": 32,
+		"PersonNumber": 4239,
+		"PersonIdCode": 3194,
+		"FirstName": "Eva",
+		"LastName": "Herzog",
+		"CantonAbbreviation": "BS",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=33,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=33,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 33,
+		"SeatNumber": 33,
+		"PersonNumber": 825,
+		"PersonIdCode": 2575,
+		"FirstName": "Hannes",
+		"LastName": "Germann",
+		"CantonAbbreviation": "SH",
+		"ParlGroupNumber": 4,
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=34,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=34,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 34,
+		"SeatNumber": 34,
+		"PersonNumber": 4270,
+		"PersonIdCode": 3162,
+		"FirstName": "Baptiste",
+		"LastName": "Hurni",
+		"CantonAbbreviation": "NE",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=35,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=35,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 35,
+		"SeatNumber": 35,
+		"PersonNumber": 4153,
+		"PersonIdCode": 3053,
+		"FirstName": "Peter",
+		"LastName": "Hegglin",
+		"CantonAbbreviation": "ZG",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=36,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=36,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 36,
+		"SeatNumber": 36,
+		"PersonNumber": 1120,
+		"PersonIdCode": 2632,
+		"FirstName": "Carlo",
+		"LastName": "Sommaruga",
+		"CantonAbbreviation": "GE",
+		"ParlGroupNumber": 2,
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=37,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=37,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 37,
+		"SeatNumber": 37,
+		"PersonNumber": 1106,
+		"PersonIdCode": 2600,
+		"FirstName": "Brigitte",
+		"LastName": "Häberli-Koller",
+		"CantonAbbreviation": "TG",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=38,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=38,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 38,
+		"SeatNumber": 38,
+		"PersonNumber": 3891,
+		"PersonIdCode": 2694,
+		"FirstName": "Daniel",
+		"LastName": "Jositsch",
+		"CantonAbbreviation": "ZH",
+		"ParlGroupNumber": 99,
+		"ParlGroupName": "Fraktionslos",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=39,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=39,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 39,
+		"SeatNumber": 39,
+		"PersonNumber": 4206,
+		"PersonIdCode": 3107,
+		"FirstName": "Erich",
+		"LastName": "Ettlin",
+		"CantonAbbreviation": "OW",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=40,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=40,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 40,
+		"SeatNumber": 40,
+		"PersonNumber": 10805,
+		"PersonIdCode": 10805,
+		"FirstName": "Pascal",
+		"LastName": "Broulis",
+		"CantonAbbreviation": "VD",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=41,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=41,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 41,
+		"SeatNumber": 41,
+		"PersonNumber": 3871,
+		"PersonIdCode": 2674,
+		"FirstName": "Pirmin",
+		"LastName": "Bischof",
+		"CantonAbbreviation": "SO",
+		"ParlGroupNumber": 3,
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=42,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=42,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 42,
+		"SeatNumber": 42,
+		"PersonNumber": 4306,
+		"PersonIdCode": 3183,
+		"FirstName": "Johanna",
+		"LastName": "Gapany",
+		"CantonAbbreviation": "FR",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=43,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=43,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 43,
+		"SeatNumber": 43,
+		"PersonNumber": 4075,
+		"PersonIdCode": 2775,
+		"FirstName": "Andrea",
+		"LastName": "Caroni",
+		"CantonAbbreviation": "AR",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=44,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=44,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 44,
+		"SeatNumber": 44,
+		"PersonNumber": 4309,
+		"PersonIdCode": 3205,
+		"FirstName": "Matthias",
+		"LastName": "Michel",
+		"CantonAbbreviation": "ZG",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=45,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=45,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 45,
+		"SeatNumber": 45,
+		"PersonNumber": 4152,
+		"PersonIdCode": 3054,
+		"FirstName": "Hans",
+		"LastName": "Wicki",
+		"CantonAbbreviation": "NW",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=46,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/SeatOrganisationSr(ID=46,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.SeatOrganisationSr"
+		},
+		"ID": 46,
+		"SeatNumber": 47,
+		"PersonNumber": 4078,
+		"PersonIdCode": 2783,
+		"FirstName": "Martin",
+		"LastName": "Schmid",
+		"CantonAbbreviation": "GR",
+		"ParlGroupNumber": 1,
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"Language": "DE"
+	}
+]

@@ -1,0 +1,191 @@
+[
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=1,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=1,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=1,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=1,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 1,
+		"Language": "DE",
+		"ParlGroupNumber": 1,
+		"IsActive": true,
+		"ParlGroupCode": "RL",
+		"ParlGroupName": "FDP-Liberale Fraktion",
+		"ParlGroupAbbreviation": "RL",
+		"NameUsedSince": "/Date(1227312000000)/",
+		"Modified": "/Date(1763065673447)/",
+		"ParlGroupColour": "0x0094EB"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=2,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=2,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=2,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=2,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 2,
+		"Language": "DE",
+		"ParlGroupNumber": 2,
+		"IsActive": true,
+		"ParlGroupCode": "S",
+		"ParlGroupName": "Sozialdemokratische Fraktion",
+		"ParlGroupAbbreviation": "S",
+		"NameUsedSince": "/Date(-1801180800000)/",
+		"Modified": "/Date(1763067474410)/",
+		"ParlGroupColour": "0xD0274E"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=3,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=3,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=3,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=3,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 3,
+		"Language": "DE",
+		"ParlGroupNumber": 3,
+		"IsActive": true,
+		"ParlGroupCode": "M-E",
+		"ParlGroupName": "Die Mitte-Fraktion. Die Mitte. EVP.",
+		"ParlGroupAbbreviation": "M-E",
+		"NameUsedSince": "/Date(1574985600000)/",
+		"Modified": "/Date(1763064749347)/",
+		"ParlGroupColour": "0xEA7815"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=4,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=4,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=4,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=4,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 4,
+		"Language": "DE",
+		"ParlGroupNumber": 4,
+		"IsActive": true,
+		"ParlGroupCode": "V",
+		"ParlGroupName": "Fraktion der Schweizerischen Volkspartei",
+		"ParlGroupAbbreviation": "V",
+		"NameUsedSince": "/Date(63072000000)/",
+		"Modified": "/Date(1763067940530)/",
+		"ParlGroupColour": "0x005E29"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=6,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=6,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=6,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=6,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 6,
+		"Language": "DE",
+		"ParlGroupNumber": 6,
+		"IsActive": true,
+		"ParlGroupCode": "G",
+		"ParlGroupName": "Grüne Fraktion",
+		"ParlGroupAbbreviation": "G",
+		"NameUsedSince": "/Date(1070236800000)/",
+		"Modified": "/Date(1763079070020)/",
+		"ParlGroupColour": "0x89BA2C"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=99,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=99,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=99,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=99,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 99,
+		"Language": "DE",
+		"ParlGroupNumber": 99,
+		"IsActive": true,
+		"ParlGroupCode": "FRAKTIONSLOS",
+		"ParlGroupName": "Fraktionslos",
+		"ParlGroupAbbreviation": "FRAKTIONSLOS",
+		"NameUsedSince": "/Date(-3676233600000)/",
+		"Modified": "/Date(1780926205683)/",
+		"ParlGroupColour": "0xd2d22d"
+	},
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=137,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=137,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.ParlGroup"
+		},
+		"MembersParlGroup": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=137,Language='DE')/MembersParlGroup"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/ParlGroup(ID=137,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 137,
+		"Language": "DE",
+		"ParlGroupNumber": 137,
+		"IsActive": true,
+		"ParlGroupCode": "GL",
+		"ParlGroupName": "Grünliberale Fraktion",
+		"ParlGroupAbbreviation": "GL",
+		"NameUsedSince": "/Date(1323043200000)/",
+		"Modified": "/Date(1763077987357)/",
+		"ParlGroupColour": null
+	}
+]

@@ -1,0 +1,36 @@
+[
+	{
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/Committee(ID=11,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/Committee(ID=11,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.Committee"
+		},
+		"MembersCommittee": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Committee(ID=11,Language='DE')/MembersCommittee"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Committee(ID=11,Language='DE')/BusinessRoles"
+			}
+		},
+		"ID": 11,
+		"Language": "DE",
+		"CommitteeNumber": 11,
+		"MainCommitteeNumber": null,
+		"SubCommitteeNumber": 0,
+		"CommitteeName": "Staatspolitische Kommission Nationalrat",
+		"Abbreviation": null,
+		"Abbreviation1": "SPK-N",
+		"Abbreviation2": null,
+		"Council": 1,
+		"CouncilName": "Nationalrat",
+		"Modified": "/Date(1763070766323)/",
+		"CommitteeType": 1,
+		"CommitteeTypeName": "Ständig",
+		"CommitteeTypeAbbreviation": "ständig",
+		"CouncilAbbreviation": "NR",
+		"DisplayType": 1
+	}
+]

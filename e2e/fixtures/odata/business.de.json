@@ -1,0 +1,252 @@
+{
+	"26.3533": {
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.Business"
+		},
+		"BusinessResponsibilities": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/BusinessResponsibilities"
+			}
+		},
+		"RelatedBusinesses": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/RelatedBusinesses"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/BusinessRoles"
+			}
+		},
+		"Publications": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Publications"
+			}
+		},
+		"LegislativePeriods": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/LegislativePeriods"
+			}
+		},
+		"Sessions": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Sessions"
+			}
+		},
+		"Preconsultations": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Preconsultations"
+			}
+		},
+		"Bills": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Bills"
+			}
+		},
+		"Councils": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Councils"
+			}
+		},
+		"BusinessTypes": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/BusinessTypes"
+			}
+		},
+		"Votes": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Votes"
+			}
+		},
+		"SubjectsBusiness": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/SubjectsBusiness"
+			}
+		},
+		"BusinessStates": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/BusinessStates"
+			}
+		},
+		"Council": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Council"
+			}
+		},
+		"Transcripts": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20263533,Language='DE')/Transcripts"
+			}
+		},
+		"ID": 20263533,
+		"Language": "DE",
+		"BusinessShortNumber": "26.3533",
+		"BusinessType": 5,
+		"BusinessTypeName": "Motion",
+		"BusinessTypeAbbreviation": "Mo.",
+		"Title": "Einheitliches System zur Anordnung der Listen bei Nationalratswahlen",
+		"Description": null,
+		"InitialSituation": null,
+		"Proceedings": null,
+		"DraftText": null,
+		"SubmittedText": "<p>Der Bundesrat wird beauftragt, folgende Änderung des Bundesgesetzes über die politischen Rechte auszuarbeiten:</p><p>&nbsp;</p><p>Schaffung eines einheitlichen und für die Wählenden verständlicheren Systems zur Anordnung der Listen. Listen- und Unterlistenverbindungen sollen auf den Wahlzetteln klarer erkennbar sein. Unterlisten sind direkt bei der jeweiligen Hauptliste aufzuführen; miteinander verbundene Listen sollen geschlossen dargestellt werden.</p><p>&nbsp;</p><p>Eine Minderheit der Kommission (Schilliger, Addor, Gianini, Glarner, Knutti, Riner, Schmid Pascal, Wasserfallen Christian) beantragt, die Motion abzulehnen.</p>",
+		"ReasonText": null,
+		"DocumentationText": null,
+		"MotionText": null,
+		"FederalCouncilResponseText": "<p>Der Bundesrat beantragt die Annahme der Motion.</p>",
+		"FederalCouncilProposal": 44,
+		"FederalCouncilProposalText": "Annahme",
+		"FederalCouncilProposalDate": "/Date(1787702400000)/",
+		"SubmittedBy": null,
+		"BusinessStatus": 205,
+		"BusinessStatusText": "In Nationalrat geplant",
+		"BusinessStatusDate": "/Date(1789033493653)/",
+		"ResponsibleDepartment": 10,
+		"ResponsibleDepartmentName": "Bundeskanzlei",
+		"ResponsibleDepartmentAbbreviation": "BK",
+		"IsLeadingDepartment": true,
+		"Tags": "4|421",
+		"Category": "IV",
+		"Modified": "/Date(1789034437920)/",
+		"SubmissionDate": "/Date(1779321600000)/",
+		"SubmissionCouncil": 1,
+		"SubmissionCouncilName": "Nationalrat",
+		"SubmissionCouncilAbbreviation": "NR",
+		"SubmissionSession": 5214,
+		"SubmissionLegislativePeriod": 52,
+		"FirstCouncil1": 1,
+		"FirstCouncil1Name": "Nationalrat",
+		"FirstCouncil1Abbreviation": "NR",
+		"FirstCouncil2": null,
+		"FirstCouncil2Name": null,
+		"FirstCouncil2Abbreviation": null,
+		"TagNames": "Staatspolitik|Parlament"
+	},
+	"25.3235": {
+		"__metadata": {
+			"id": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')",
+			"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')",
+			"type": "itsystems.Pd.DataServices.DataModel.Business"
+		},
+		"BusinessResponsibilities": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/BusinessResponsibilities"
+			}
+		},
+		"RelatedBusinesses": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/RelatedBusinesses"
+			}
+		},
+		"BusinessRoles": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/BusinessRoles"
+			}
+		},
+		"Publications": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Publications"
+			}
+		},
+		"LegislativePeriods": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/LegislativePeriods"
+			}
+		},
+		"Sessions": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Sessions"
+			}
+		},
+		"Preconsultations": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Preconsultations"
+			}
+		},
+		"Bills": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Bills"
+			}
+		},
+		"Councils": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Councils"
+			}
+		},
+		"BusinessTypes": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/BusinessTypes"
+			}
+		},
+		"Votes": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Votes"
+			}
+		},
+		"SubjectsBusiness": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/SubjectsBusiness"
+			}
+		},
+		"BusinessStates": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/BusinessStates"
+			}
+		},
+		"Council": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Council"
+			}
+		},
+		"Transcripts": {
+			"__deferred": {
+				"uri": "https://ws.parlament.ch/OData.svc/Business(ID=20253235,Language='DE')/Transcripts"
+			}
+		},
+		"ID": 20253235,
+		"Language": "DE",
+		"BusinessShortNumber": "25.3235",
+		"BusinessType": 5,
+		"BusinessTypeName": "Motion",
+		"BusinessTypeAbbreviation": "Mo.",
+		"Title": "Mehr Beteiligung, bessere Digitalisierung",
+		"Description": null,
+		"InitialSituation": null,
+		"Proceedings": null,
+		"DraftText": null,
+		"SubmittedText": "<p>Der Bundesrat wird beauftragt, in Gesetzgebungs- und weiteren Projekten im digitalen Bereich, die sich dafür eignen, schnellstmöglich partizipative, transparente und über die verschiedenen involvierten Bundesämter koordinierte Prozesse zu etablieren. Ziel dieses&nbsp;Ansatzes des «Community Building» ist der verstärkte&nbsp;Einbezug des Wissens und der Ideen breiter interessierter Kreise aus Wissenschaft, Zivilgesellschaft und Wirtschaft, um der Dynamik in digital geprägten Dossiers, insbesondere im Bereich der KI, angemessen Rechnung zu tragen und die etablierten Prozesse im Sinne eines transparenten und offenen Ansatzes zu erweitern. Zu diesem Zweck sorgt der Bundesrat für die nötigen zeitlichen, finanziellen und personellen Ressourcen.</p>",
+		"ReasonText": "<p>Weltweit wird darum gerungen, einen Umgang mit den Herausforderungen der Digitalisierung und insbesondere leistungsstarken KI-Werkzeugen zu finden, der sowohl Innovation fördert als auch gesellschaftlich akzeptiert ist. Die rasante Entwicklung der Künstlichen Intelligenz treibt diesen Prozess in atemberaubendem Tempo voran.</p><p>Das Thema beherrscht die öffentliche Debatte: Mit der Faszination wachsen auch die Bedenken. Menschen fürchten tiefgreifende Veränderungen – sei es auf dem Arbeitsmarkt, in der Medienbranche und in vielen weiteren Bereichen.</p><p>&nbsp;</p><p>Eine breite gesellschaftliche Auseinandersetzung, die möglichst viele Stakeholder einbindet, bietet die Chance, realitätsnahe und praxistaugliche Lösungen zu entwickeln. Gleichzeitig kann sie die gesellschaftliche Akzeptanz von digitalen Lösungen und KI erheblich steigern&nbsp;und den Vernehmlassungsaufwand der Verwaltung reduzieren.</p><p>Partizipative Methoden sollen schnellstmöglich im Rahmen des Umsetzbaren in wichtigen Gesetzgebungs- und weiteren Projekten des Bundes, die sich dafür eignen, angewendet werden. Die bestehenden Prozesse, insbesondere das Vernehmlassungsverfahren, sollen nicht ersetzt, sondern um diese neuen Ansätze ergänzt werden.</p><p>Gute Beispiele für die Anwendung innovativer&nbsp;Methoden sind die partizipative Plateforme Tripartite Suisse für digitale Gouvernanz und KI oder die kollaborative, iterative&nbsp;und transparente Erarbeitung der E-ID-Vertrauensinfrastruktur,&nbsp;welche als Grundlage für die Umsetzung der Motion dienen können.&nbsp;</p>",
+		"DocumentationText": null,
+		"MotionText": null,
+		"FederalCouncilResponseText": "<p>Der Bundesrat beantragt die Annahme der Motion.</p>",
+		"FederalCouncilProposal": 44,
+		"FederalCouncilProposalText": "Annahme",
+		"FederalCouncilProposalDate": "/Date(1747785600000)/",
+		"SubmittedBy": "Andrey Gerhard",
+		"BusinessStatus": 205,
+		"BusinessStatusText": "In Nationalrat geplant",
+		"BusinessStatusDate": "/Date(1789033493653)/",
+		"ResponsibleDepartment": 10,
+		"ResponsibleDepartmentName": "Bundeskanzlei",
+		"ResponsibleDepartmentAbbreviation": "BK",
+		"IsLeadingDepartment": true,
+		"Tags": "4|28|34",
+		"Category": null,
+		"Modified": "/Date(1789034677960)/",
+		"SubmissionDate": "/Date(1742428800000)/",
+		"SubmissionCouncil": 1,
+		"SubmissionCouncilName": "Nationalrat",
+		"SubmissionCouncilAbbreviation": "NR",
+		"SubmissionSession": 5207,
+		"SubmissionLegislativePeriod": 52,
+		"FirstCouncil1": 1,
+		"FirstCouncil1Name": "Nationalrat",
+		"FirstCouncil1Abbreviation": "NR",
+		"FirstCouncil2": null,
+		"FirstCouncil2Name": null,
+		"FirstCouncil2Abbreviation": null,
+		"TagNames": "Staatspolitik|Soziale Fragen|Medien und Kommunikation"
+	}
+}

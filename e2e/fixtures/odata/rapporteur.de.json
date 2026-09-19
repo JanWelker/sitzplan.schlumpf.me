@@ -1,0 +1,51 @@
+{
+	"26.3533": [
+		{
+			"__metadata": {
+				"id": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'809638b3-6916-4bdb-a186-51cf493697c6',Language='DE')",
+				"uri": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'809638b3-6916-4bdb-a186-51cf493697c6',Language='DE')",
+				"type": "itsystems.Pd.DataServices.DataModel.Rapporteur"
+			},
+			"Bill": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'809638b3-6916-4bdb-a186-51cf493697c6',Language='DE')/Bill"
+				}
+			},
+			"ID": "809638b3-6916-4bdb-a186-51cf493697c6",
+			"BusinessNumber": 20263533,
+			"BusinessShortNumber": "26.3533",
+			"BusinessTitle": "Einheitliches System zur Anordnung der Listen bei Nationalratswahlen",
+			"IdBill": "c3ab12d3-45e1-4215-8aac-6bdcb3f9d20d",
+			"CommitteeNumber": null,
+			"MemberCouncilNumber": 4326,
+			"LastName": "Fischer",
+			"FirstName": "Benjamin",
+			"Language": "DE",
+			"Modified": "/Date(1779380176020)/"
+		},
+		{
+			"__metadata": {
+				"id": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'6402a656-66eb-4712-aab4-c10345de3a0d',Language='DE')",
+				"uri": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'6402a656-66eb-4712-aab4-c10345de3a0d',Language='DE')",
+				"type": "itsystems.Pd.DataServices.DataModel.Rapporteur"
+			},
+			"Bill": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/Rapporteur(ID=guid'6402a656-66eb-4712-aab4-c10345de3a0d',Language='DE')/Bill"
+				}
+			},
+			"ID": "6402a656-66eb-4712-aab4-c10345de3a0d",
+			"BusinessNumber": 20263533,
+			"BusinessShortNumber": "26.3533",
+			"BusinessTitle": "Einheitliches System zur Anordnung der Listen bei Nationalratswahlen",
+			"IdBill": "c3ab12d3-45e1-4215-8aac-6bdcb3f9d20d",
+			"CommitteeNumber": null,
+			"MemberCouncilNumber": 4268,
+			"LastName": "Gysin",
+			"FirstName": "Greta",
+			"Language": "DE",
+			"Modified": "/Date(1779380152490)/"
+		}
+	],
+	"25.3235": []
+}

@@ -1,0 +1,171 @@
+{
+	"26.3533": [
+		{
+			"__metadata": {
+				"id": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')",
+				"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')",
+				"type": "itsystems.Pd.DataServices.DataModel.BusinessRole"
+			},
+			"MembersCouncil": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/MembersCouncil"
+				}
+			},
+			"ParlGroups": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/ParlGroups"
+				}
+			},
+			"Businesses": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/Businesses"
+				}
+			},
+			"Cantons": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/Cantons"
+				}
+			},
+			"Externals": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/Externals"
+				}
+			},
+			"Committees": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'5b893d6b-2a5c-4d61-b09c-ece0af9bbded',Language='DE')/Committees"
+				}
+			},
+			"ID": "5b893d6b-2a5c-4d61-b09c-ece0af9bbded",
+			"Language": "DE",
+			"Role": 7,
+			"RoleName": "Urheber(-in)",
+			"BusinessNumber": 20263533,
+			"IdExternal": null,
+			"ParlGroupNumber": null,
+			"CantonNumber": null,
+			"CommitteeNumber": 11,
+			"MemberCouncilNumber": null,
+			"ReturnType": 2,
+			"Modified": "/Date(1789034437877)/",
+			"BusinessShortNumber": "26.3533",
+			"BusinessTitle": "Einheitliches System zur Anordnung der Listen bei Nationalratswahlen",
+			"BusinessSubmissionDate": "/Date(1779321600000)/",
+			"BusinessType": 5,
+			"BusinessTypeName": "Motion",
+			"BusinessTypeAbbreviation": "Mo."
+		}
+	],
+	"25.3235": [
+		{
+			"__metadata": {
+				"id": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')",
+				"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')",
+				"type": "itsystems.Pd.DataServices.DataModel.BusinessRole"
+			},
+			"MembersCouncil": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/MembersCouncil"
+				}
+			},
+			"ParlGroups": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/ParlGroups"
+				}
+			},
+			"Businesses": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/Businesses"
+				}
+			},
+			"Cantons": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/Cantons"
+				}
+			},
+			"Externals": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/Externals"
+				}
+			},
+			"Committees": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'98769348-81c9-4907-8526-7d9cfb6c070d',Language='DE')/Committees"
+				}
+			},
+			"ID": "98769348-81c9-4907-8526-7d9cfb6c070d",
+			"Language": "DE",
+			"Role": 1,
+			"RoleName": "Bekämpfer(-in)",
+			"BusinessNumber": 20253235,
+			"IdExternal": null,
+			"ParlGroupNumber": null,
+			"CantonNumber": null,
+			"CommitteeNumber": null,
+			"MemberCouncilNumber": 4175,
+			"ReturnType": 0,
+			"Modified": "/Date(1789034677953)/",
+			"BusinessShortNumber": "25.3235",
+			"BusinessTitle": "Mehr Beteiligung, bessere Digitalisierung",
+			"BusinessSubmissionDate": "/Date(1742428800000)/",
+			"BusinessType": 5,
+			"BusinessTypeName": "Motion",
+			"BusinessTypeAbbreviation": "Mo."
+		},
+		{
+			"__metadata": {
+				"id": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')",
+				"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')",
+				"type": "itsystems.Pd.DataServices.DataModel.BusinessRole"
+			},
+			"MembersCouncil": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/MembersCouncil"
+				}
+			},
+			"ParlGroups": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/ParlGroups"
+				}
+			},
+			"Businesses": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/Businesses"
+				}
+			},
+			"Cantons": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/Cantons"
+				}
+			},
+			"Externals": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/Externals"
+				}
+			},
+			"Committees": {
+				"__deferred": {
+					"uri": "https://ws.parlament.ch/OData.svc/BusinessRole(ID=guid'15665411-4f17-4d4e-8b8c-c4ddcbf4aad0',Language='DE')/Committees"
+				}
+			},
+			"ID": "15665411-4f17-4d4e-8b8c-c4ddcbf4aad0",
+			"Language": "DE",
+			"Role": 7,
+			"RoleName": "Urheber(-in)",
+			"BusinessNumber": 20253235,
+			"IdExternal": null,
+			"ParlGroupNumber": null,
+			"CantonNumber": null,
+			"CommitteeNumber": null,
+			"MemberCouncilNumber": 4245,
+			"ReturnType": 0,
+			"Modified": "/Date(1789034677953)/",
+			"BusinessShortNumber": "25.3235",
+			"BusinessTitle": "Mehr Beteiligung, bessere Digitalisierung",
+			"BusinessSubmissionDate": "/Date(1742428800000)/",
+			"BusinessType": 5,
+			"BusinessTypeName": "Motion",
+			"BusinessTypeAbbreviation": "Mo."
+		}
+	]
+}
