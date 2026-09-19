@@ -20,11 +20,11 @@
 
 	let { chamber, roster, highlights, partyColors, messages, title }: Props = $props();
 
-	// Wider than tall and rotated tangentially to the seat's angle from the
-	// podium, so tiles read as following the real arcs rather than a sparse
-	// field of diamonds.
-	const SEAT_WIDTH = 13;
-	const SEAT_HEIGHT = 9;
+	// Plain axis-aligned squares, matching the official parlament.ch style —
+	// no per-seat rotation. Rotating each tile tangentially to its row's
+	// curve reads as "twisted" wherever a row curves sharply (the outer
+	// arcs), even though the underlying position is correct.
+	const SEAT_SIZE = 11;
 	/** Fixed draw order + visual encoding (color AND dash pattern, not color alone) for stacked role rings. */
 	const ROLE_ORDER: RoleKind[] = ['contester', 'submitter', 'rapporteur'];
 	const ROLE_STYLE: Record<RoleKind, { color: string; dash: string | undefined }> = {
@@ -37,7 +37,6 @@
 		seat: SeatEntry;
 		x: number;
 		y: number;
-		angleRad: number;
 	}
 
 	const placedSeats = $derived.by((): PlacedSeat[] => {
@@ -45,7 +44,7 @@
 		for (const seat of roster) {
 			const pos = getSeatPosition(chamber, seat.seatNumber);
 			if (!pos) continue; // Not part of the digitized real seat plan (shouldn't happen for a current member).
-			placed.push({ seat, x: pos.x, y: pos.y, angleRad: pos.angleRad });
+			placed.push({ seat, x: pos.x, y: pos.y });
 		}
 		return placed;
 	});
@@ -54,7 +53,7 @@
 	const rosterByNumber = $derived(new Map(roster.map((s) => [s.seatNumber, s])));
 
 	const bounds = $derived.by(() => {
-		const pad = SEAT_WIDTH + 10;
+		const pad = SEAT_SIZE + 10;
 		const b = getChamberBounds(chamber);
 		return {
 			minX: b.minX - pad,
@@ -111,7 +110,6 @@
 				seat.parlGroupNumber != null
 					? (partyColors.get(seat.parlGroupNumber)?.color ?? FALLBACK_PARTY_COLOR)
 					: FALLBACK_PARTY_COLOR}
-			{@const rotateDeg = (placed.angleRad * 180) / Math.PI}
 			<g
 				transform={`translate(${placed.x}, ${placed.y})`}
 				class="seat"
@@ -127,7 +125,7 @@
 				{#if highlight}
 					{#each sortedRoles(highlight.roles) as role, ringIndex (role.kind + role.businessShortNumber)}
 						<circle
-							r={SEAT_WIDTH / 2 + 4 + ringIndex * 3}
+							r={SEAT_SIZE / 2 + 4 + ringIndex * 3}
 							fill="none"
 							stroke={ROLE_STYLE[role.kind].color}
 							stroke-width="2"
@@ -136,11 +134,10 @@
 					{/each}
 				{/if}
 				<rect
-					transform={`rotate(${rotateDeg})`}
-					x={-SEAT_WIDTH / 2}
-					y={-SEAT_HEIGHT / 2}
-					width={SEAT_WIDTH}
-					height={SEAT_HEIGHT}
+					x={-SEAT_SIZE / 2}
+					y={-SEAT_SIZE / 2}
+					width={SEAT_SIZE}
+					height={SEAT_SIZE}
 					rx="1"
 					fill={groupColor}
 					class="seat-fill"
