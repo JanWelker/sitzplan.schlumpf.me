@@ -34,24 +34,19 @@
 
 <style>
 	.seat-tooltip {
-		margin-top: var(--space-3);
-		padding: var(--space-3);
 		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
+		border-radius: var(--radius-sm);
 		background: var(--color-surface);
-		max-width: 24rem;
 	}
 	.meta {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-3);
+		gap: var(--space-2);
 		color: var(--color-text-muted);
-		font-size: 0.875rem;
-		margin-top: var(--space-1);
+		margin-top: 2px;
 	}
 	.roles {
-		margin: var(--space-2) 0 0;
-		padding-left: 1.1rem;
-		font-size: 0.875rem;
+		margin: var(--space-1) 0 0;
+		padding-left: 1rem;
 	}
 </style>
