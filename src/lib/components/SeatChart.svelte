@@ -298,10 +298,12 @@
 				{@const topPct = ((vb.y - bounds.minY) / (bounds.maxY - bounds.minY)) * 100}
 				{@const side = vb.x >= 0 ? 'right' : 'left'}
 				{@const nudge = nudges[vb.seatNumber] ?? { x: 0, y: 0 }}
+				{@const collided = Math.abs(nudge.y) > 0.5}
 				<div
 					class="bubble"
 					class:side-right={side === 'right'}
 					class:side-left={side === 'left'}
+					class:tail-top={collided}
 					aria-hidden={vb.pinned ? 'true' : undefined}
 					style={`left:${leftPct}%; top:${topPct}%; transform: translate(${
 						side === 'right'
@@ -380,21 +382,28 @@
 		font-size: 0.72rem;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	}
+	/* The tail sits in a lower corner by default, pointing back toward the
+	   seat — but a bubble that collision-avoidance has pushed down away from
+	   its seat is closer to it at the TOP, so the tail moves up there too
+	   (see the `collided` check next to where `tail-top` is set). */
 	.bubble :global(.seat-tooltip::before) {
 		content: '';
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		border: 6px solid transparent;
+		bottom: 8px;
+		border: 8px solid transparent;
+	}
+	.bubble.tail-top :global(.seat-tooltip::before) {
+		top: 8px;
+		bottom: auto;
 	}
 	.bubble.side-right :global(.seat-tooltip::before) {
-		left: -6px;
-		border-right-color: var(--color-border);
+		left: -8px;
+		border-right-color: var(--color-highlight-ring);
 		border-left-width: 0;
 	}
 	.bubble.side-left :global(.seat-tooltip::before) {
-		right: -6px;
-		border-left-color: var(--color-border);
+		right: -8px;
+		border-left-color: var(--color-highlight-ring);
 		border-right-width: 0;
 	}
 	@media print {
