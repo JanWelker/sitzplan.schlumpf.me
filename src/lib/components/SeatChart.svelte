@@ -423,17 +423,22 @@
 	.bubble.side-left :global(.seat-tooltip::before) {
 		right: -14px;
 	}
+	/* Each triangle's apex is the square's corner diagonally OPPOSITE the one
+	   touching the bubble, with the base straddling the touching corner (at
+	   the midpoints of the two edges next to it) — so the point actually
+	   sticks out toward the seat, instead of the touching corner itself
+	   being the (blunt, 90°) point and the sharp ends sticking out sideways. */
 	.bubble.side-right:not(.tail-top) :global(.seat-tooltip::before) {
-		clip-path: polygon(100% 0, 0 0, 100% 100%);
+		clip-path: polygon(0% 100%, 50% 0%, 100% 50%);
 	}
 	.bubble.side-right.tail-top :global(.seat-tooltip::before) {
-		clip-path: polygon(100% 100%, 0 100%, 100% 0);
+		clip-path: polygon(0% 0%, 100% 50%, 50% 100%);
 	}
 	.bubble.side-left:not(.tail-top) :global(.seat-tooltip::before) {
-		clip-path: polygon(0 0, 100% 0, 0 100%);
+		clip-path: polygon(100% 100%, 50% 0%, 0% 50%);
 	}
 	.bubble.side-left.tail-top :global(.seat-tooltip::before) {
-		clip-path: polygon(0 100%, 100% 100%, 0 0);
+		clip-path: polygon(100% 0%, 0% 50%, 50% 100%);
 	}
 	@media print {
 		/* The print view has its own static, named roster instead (see
