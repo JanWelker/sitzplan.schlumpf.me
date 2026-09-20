@@ -120,7 +120,7 @@
 
 	let bubbleLayerEl = $state<HTMLDivElement>();
 	const bubbleEls: Record<number, HTMLElement> = {};
-	let nudges = $state<Record<number, { x: number; y: number }>>({});
+	let nudges = $state<Record<number, { x: number; y: number; topTail: boolean }>>({});
 	let resolveScheduled = false;
 
 	// Bubble boxes are sized by their text content, not by the chart's
@@ -193,7 +193,7 @@
 			}
 		}
 
-		const next: Record<number, { x: number; y: number }> = {};
+		const next: Record<number, { x: number; y: number; topTail: boolean }> = {};
 		for (const item of items) {
 			let dx = 0;
 			if (item.vpLeft < VIEWPORT_MARGIN) {
@@ -201,7 +201,14 @@
 			} else if (item.vpRight > window.innerWidth - VIEWPORT_MARGIN) {
 				dx = window.innerWidth - VIEWPORT_MARGIN - item.vpRight;
 			}
-			next[item.seatNumber] = { x: dx, y: dy[item.seatNumber] ?? 0 };
+			const itemDy = dy[item.seatNumber] ?? 0;
+			// A pushed-down bubble's top edge approaches the seat as the push
+			// grows, while its bottom edge moves further away — but only past
+			// the halfway point does the top edge actually become the CLOSER
+			// one. Below that, the bottom edge (where the tail defaults to)
+			// is still nearer, so keep it there.
+			const height = item.y1 - item.y0;
+			next[item.seatNumber] = { x: dx, y: itemDy, topTail: itemDy > height / 2 };
 		}
 		nudges = next;
 	}
@@ -297,13 +304,12 @@
 				{@const leftPct = ((vb.x - bounds.minX) / (bounds.maxX - bounds.minX)) * 100}
 				{@const topPct = ((vb.y - bounds.minY) / (bounds.maxY - bounds.minY)) * 100}
 				{@const side = vb.x >= 0 ? 'right' : 'left'}
-				{@const nudge = nudges[vb.seatNumber] ?? { x: 0, y: 0 }}
-				{@const collided = Math.abs(nudge.y) > 0.5}
+				{@const nudge = nudges[vb.seatNumber] ?? { x: 0, y: 0, topTail: false }}
 				<div
 					class="bubble"
 					class:side-right={side === 'right'}
 					class:side-left={side === 'left'}
-					class:tail-top={collided}
+					class:tail-top={nudge.topTail}
 					aria-hidden={vb.pinned ? 'true' : undefined}
 					style={`left:${leftPct}%; top:${topPct}%; transform: translate(${
 						side === 'right'
@@ -389,28 +395,45 @@
 	   A bubble collision-avoidance has pushed further down keeps that same
 	   bottom-anchored position (so the collision math stays correct — it
 	   measures real rendered boxes, not a moving target), which pulls its
-	   TOP edge up toward the seat as it goes; the tail moves to that top
-	   corner in that case instead (see the `collided` check next to where
-	   `tail-top` is set). */
+	   TOP edge up toward the seat as it goes; once it's pushed down more
+	   than half the bubble's own height, that top edge is the CLOSER one,
+	   and the tail moves to that top corner instead (see `nudge.topTail`,
+	   computed in resolveCollisions). */
+	/* The tail is the bubble's own corner, pulled into a red point: a small
+	   square touching that corner at exactly one of its own corners, with
+	   the other three corners clipped down to a triangle so it comes to a
+	   point right where it touches — not a separate arrow shape stuck onto
+	   a flat edge. */
 	.bubble :global(.seat-tooltip::before) {
 		content: '';
 		position: absolute;
-		bottom: 0;
-		border: 8px solid transparent;
+		width: 14px;
+		height: 14px;
+		background: var(--color-highlight-ring);
+	}
+	.bubble:not(.tail-top) :global(.seat-tooltip::before) {
+		bottom: -14px;
 	}
 	.bubble.tail-top :global(.seat-tooltip::before) {
-		top: 0;
-		bottom: auto;
+		top: -14px;
 	}
 	.bubble.side-right :global(.seat-tooltip::before) {
-		left: -8px;
-		border-right-color: var(--color-highlight-ring);
-		border-left-width: 0;
+		left: -14px;
 	}
 	.bubble.side-left :global(.seat-tooltip::before) {
-		right: -8px;
-		border-left-color: var(--color-highlight-ring);
-		border-right-width: 0;
+		right: -14px;
+	}
+	.bubble.side-right:not(.tail-top) :global(.seat-tooltip::before) {
+		clip-path: polygon(100% 0, 0 0, 100% 100%);
+	}
+	.bubble.side-right.tail-top :global(.seat-tooltip::before) {
+		clip-path: polygon(100% 100%, 0 100%, 100% 0);
+	}
+	.bubble.side-left:not(.tail-top) :global(.seat-tooltip::before) {
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+	.bubble.side-left.tail-top :global(.seat-tooltip::before) {
+		clip-path: polygon(0 100%, 100% 100%, 0 0);
 	}
 	@media print {
 		/* The print view has its own static, named roster instead (see
