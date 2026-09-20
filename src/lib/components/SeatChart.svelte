@@ -309,7 +309,7 @@
 						side === 'right'
 							? `calc(${BUBBLE_OFFSET}px + ${nudge.x}px)`
 							: `calc(-100% - ${BUBBLE_OFFSET}px + ${nudge.x}px)`
-					}, calc(-50% + ${nudge.y}px));`}
+					}, calc(-100% + ${nudge.y}px));`}
 					use:registerBubbleEl={vb.seatNumber}
 				>
 					<SeatTooltip seat={vb.seat} highlight={vb.highlight} {messages} />
@@ -382,18 +382,24 @@
 		font-size: 0.72rem;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	}
-	/* The tail sits in a lower corner by default, pointing back toward the
-	   seat — but a bubble that collision-avoidance has pushed down away from
-	   its seat is closer to it at the TOP, so the tail moves up there too
-	   (see the `collided` check next to where `tail-top` is set). */
+	/* Bubbles are bottom-anchored (see the translateY(-100%) above) so an
+	   un-nudged bubble's bottom edge sits exactly at the seat's height —
+	   the tail sits flush in that corner, literally touching it, rather
+	   than floating in the middle of the bubble's side.
+	   A bubble collision-avoidance has pushed further down keeps that same
+	   bottom-anchored position (so the collision math stays correct — it
+	   measures real rendered boxes, not a moving target), which pulls its
+	   TOP edge up toward the seat as it goes; the tail moves to that top
+	   corner in that case instead (see the `collided` check next to where
+	   `tail-top` is set). */
 	.bubble :global(.seat-tooltip::before) {
 		content: '';
 		position: absolute;
-		bottom: 8px;
+		bottom: 0;
 		border: 8px solid transparent;
 	}
 	.bubble.tail-top :global(.seat-tooltip::before) {
-		top: 8px;
+		top: 0;
 		bottom: auto;
 	}
 	.bubble.side-right :global(.seat-tooltip::before) {
