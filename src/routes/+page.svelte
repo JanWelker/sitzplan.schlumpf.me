@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { detectLocale, SUPPORTED_LOCALES } from '$lib/i18n';
+	import { detectLocale, SUPPORTED_LOCALES } from '#lib/i18n/index.js';
 
 	onMount(() => {
 		const locale = detectLocale(navigator.language);

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { resolve } from '$app/paths';
 	import type { ResolvedPathname } from '$app/types';
-	import { SUPPORTED_LOCALES } from '$lib/i18n';
-	import type { Locale } from '$lib/api/types';
-	import type { Messages } from '$lib/i18n/messages/types';
-	import { translate } from '$lib/i18n';
+	import { SUPPORTED_LOCALES } from '#lib/i18n/index.js';
+	import type { Locale } from '#lib/api/types.js';
+	import type { Messages } from '#lib/i18n/messages/types.js';
+	import { translate } from '#lib/i18n/index.js';
 
 	interface Props {
 		currentLocale: Locale;

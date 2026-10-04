@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { getSeatPosition, getChamberBounds } from '$lib/layout/hemicycle';
-	import type { SeatEntry } from '$lib/api/seatRoster';
-	import type { SeatHighlight, RoleKind } from '$lib/highlight/buildHighlightSet';
-	import type { ParlGroupColor } from '$lib/api/parlGroups';
-	import type { Chamber } from '$lib/api/types';
-	import type { Messages } from '$lib/i18n/messages/types';
-	import { translate } from '$lib/i18n';
-	import { FALLBACK_PARTY_COLOR } from '$lib/config/partyColors';
+	import { getSeatPosition, getChamberBounds } from '#lib/layout/hemicycle.js';
+	import type { SeatEntry } from '#lib/api/seatRoster.js';
+	import type { SeatHighlight, RoleKind } from '#lib/highlight/buildHighlightSet.js';
+	import type { ParlGroupColor } from '#lib/api/parlGroups.js';
+	import type { Chamber } from '#lib/api/types.js';
+	import type { Messages } from '#lib/i18n/messages/types.js';
+	import { translate } from '#lib/i18n/index.js';
+	import { FALLBACK_PARTY_COLOR } from '#lib/config/partyColors.js';
 	import SeatTooltip from './SeatTooltip.svelte';
 
 	interface Props {

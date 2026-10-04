@@ -1,5 +1,5 @@
-import type { Handle } from '@sveltejs/kit';
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '$lib/i18n';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '#lib/i18n/index.js';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const segment = event.url.pathname.split('/')[1];
