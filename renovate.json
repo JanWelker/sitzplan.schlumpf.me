@@ -1,12 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended", ":semanticCommits"],
-	"labels": ["dependencies"],
-	"prConcurrentLimit": 0,
-	"prHourlyLimit": 0,
-	"platformAutomerge": true,
-	"automerge": true,
-	"automergeType": "pr",
+	"extends": ["github>JanWelker/renovate-config"],
 	"lockFileMaintenance": {
 		"enabled": true,
 		"schedule": ["before 6am on monday"]
