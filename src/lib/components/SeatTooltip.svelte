@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { SeatEntry } from '$lib/api/seatRoster';
-	import type { SeatHighlight } from '$lib/highlight/buildHighlightSet';
-	import type { Messages } from '$lib/i18n/messages/types';
-	import { translate } from '$lib/i18n';
+	import type { SeatEntry } from '#lib/api/seatRoster.js';
+	import type { SeatHighlight } from '#lib/highlight/buildHighlightSet.js';
+	import type { Messages } from '#lib/i18n/messages/types.js';
+	import { translate } from '#lib/i18n/index.js';
 
 	interface Props {
 		seat: SeatEntry;

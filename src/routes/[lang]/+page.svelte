@@ -4,13 +4,13 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { LayoutData } from './$types';
-	import SearchBar from '$lib/components/SearchBar.svelte';
-	import SeatChart from '$lib/components/SeatChart.svelte';
-	import { buildHighlightSet, type HighlightSet } from '$lib/highlight/buildHighlightSet';
-	import { fetchSeatRoster, type SeatEntry } from '$lib/api/seatRoster';
-	import { fetchParlGroupColorIndex, type ParlGroupColor } from '$lib/api/parlGroups';
-	import { translate } from '$lib/i18n';
-	import { printControl } from '$lib/stores/printControl.svelte';
+	import SearchBar from '#lib/components/SearchBar.svelte';
+	import SeatChart from '#lib/components/SeatChart.svelte';
+	import { buildHighlightSet, type HighlightSet } from '#lib/highlight/buildHighlightSet.js';
+	import { fetchSeatRoster, type SeatEntry } from '#lib/api/seatRoster.js';
+	import { fetchParlGroupColorIndex, type ParlGroupColor } from '#lib/api/parlGroups.js';
+	import { translate } from '#lib/i18n/index.js';
+	import { printControl } from '#lib/stores/printControl.svelte.js';
 
 	let { data }: { data: LayoutData } = $props();
 	const messages = $derived(data.messages);
@@ -34,8 +34,7 @@
 		loadError = false;
 		goto(resolve(`/[lang]?a=${encodeURIComponent(trimmed)}`, { lang: locale }), {
 			replaceState: true,
-			noScroll: true,
-			keepFocus: true
+			reset: false
 		});
 
 		try {

@@ -2,9 +2,9 @@
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { resolve } from '$app/paths';
-	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
-	import { translate } from '$lib/i18n';
-	import { printControl } from '$lib/stores/printControl.svelte';
+	import LanguageSwitcher from '#lib/components/LanguageSwitcher.svelte';
+	import { translate } from '#lib/i18n/index.js';
+	import { printControl } from '#lib/stores/printControl.svelte.js';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const messages = $derived(data.messages);

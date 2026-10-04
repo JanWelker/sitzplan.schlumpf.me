@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
-import { isSupportedLocale, getMessages } from '$lib/i18n';
+import { isSupportedLocale, getMessages } from '#lib/i18n/index.js';
 
 export const prerender = true;
 

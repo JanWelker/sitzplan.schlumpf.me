@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Messages } from '$lib/i18n/messages/types';
-	import { translate } from '$lib/i18n';
+	import type { Messages } from '#lib/i18n/messages/types.js';
+	import { translate } from '#lib/i18n/index.js';
 
 	interface Props {
 		value: string;
