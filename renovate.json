@@ -7,6 +7,15 @@
 	},
 	"packageRules": [
 		{
+			"description": "SvelteKit and its adapter declare each other as peers: a kit major and an adapter major arrive as one PR, or neither installs.",
+			"matchPackageNames": [
+				"@sveltejs/kit",
+				"/^@sveltejs/adapter-/",
+				"@sveltejs/vite-plugin-svelte"
+			],
+			"groupName": "sveltekit"
+		},
+		{
 			"matchPackageNames": ["typescript"],
 			"matchUpdateTypes": ["major"],
 			"enabled": false,
