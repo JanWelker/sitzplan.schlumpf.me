@@ -88,7 +88,10 @@ Every pull request gets its own live preview, deployed to
 with a link posted as a PR comment and updated on every push. The preview
 build is a separate `npm run build` with `BASE_PATH=/pr-preview/pr-<number>`
 so internal links resolve correctly at that subpath (see `vite.config.ts`).
-Previews are removed automatically when the PR is closed.
+Previews are removed automatically when the PR is closed. The build runs
+in a read-only job; a second job publishes its artifact without running npm,
+so a dependency's install script never holds a token that can write
+`gh-pages`. PRs from forks get no preview.
 
 ## License
 
