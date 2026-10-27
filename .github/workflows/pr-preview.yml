@@ -12,40 +12,90 @@ concurrency:
   group: preview-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  pull-requests: write
+# Nothing by default; each job asks for what it needs. The build runs the PR's
+# npm install scripts, so it gets a read-only token and nothing that can push
+# to gh-pages, the branch production is served from.
+permissions: {}
 
 jobs:
-  deploy-preview:
+  build:
+    # Fork PRs get a read-only token and must not reach gh-pages anyway; a
+    # closed PR only needs its directory removed, so there is nothing to build.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository
+      && github.event.action != 'closed'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node
-        if: github.event.action != 'closed'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 24
           cache: npm
 
       - name: Install dependencies
-        if: github.event.action != 'closed'
         run: npm ci
 
       - name: Build
-        if: github.event.action != 'closed'
         # Served from /pr-preview/pr-<number>/ on the gh-pages branch, so
         # the build needs to know its own base path — see vite.config.ts.
         run: npm run build
         env:
           BASE_PATH: /pr-preview/pr-${{ github.event.number }}
 
+      - name: Upload build
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: preview-build
+          path: build/
+          # build/.nojekyll is a dotfile, which upload-artifact drops by
+          # default; without it Pages runs Jekyll and drops _app/.
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy-preview:
+    needs: build
+    # After a successful build, or on `closed` (build skipped) to remove the
+    # preview. `!cancelled()` is what lets it run when `build` was skipped.
+    if: >-
+      !cancelled()
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && (needs.build.result == 'success' || github.event.action == 'closed')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # The deploy action hangs its gh-pages worktree off a git repository in
+      # the workspace and sets its own token-bearing remote, so the checkout
+      # keeps no credentials. Nothing from the PR is executed in this job.
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Download build
+        if: github.event.action != 'closed'
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: preview-build
+          path: ${{ runner.temp }}/preview-build
+
       - name: Deploy preview
+        # Its rsync --delete is scoped to pr-preview/pr-<number>, never the
+        # branch root.
         uses: rossjrw/pr-preview-action@ffa7509e91a3ec8dfc2e5536c4d5c1acdf7a6de9 # v1
         with:
-          source-dir: ./build/
+          source-dir: ${{ runner.temp }}/preview-build
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
